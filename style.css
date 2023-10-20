@@ -106,10 +106,11 @@ a.discover-btn:hover, a.discover-btn:active {
     background-color: rgba(255,255,255,0.1);
 }
 
-.about-content {
+.about-content, .contact-content{
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    margin-top: 1.5rem;
 }
 
 h2 {
@@ -127,29 +128,28 @@ h3 {
     color: #D2AB77;
 }
 
-.about-info {
+.about-info, .contact-form {
     background-color: #111219;
     color: #919FA6;
-    width: 612px;
-    height: 420px;
-    padding: 3rem 2rem;
+    width: 695px;
+    height: 481px;
+    padding: 2.5rem 2rem;
 }
 
 p {
-    padding-top: 1.5rem;
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    line-height: 1.8rem;
+    padding-top: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    line-height: 2.3rem;
     text-align: justify;
 }
 
-a.about-btn {
+a.about-btn, a.read-btn {
     color: white;
     background-color: #D2AB77;
     padding: 0.7rem 2rem;
     font-size: 1rem;
-    top: 50px;
-    left: 100px;
+    
 }
 
 .product-img img{
@@ -166,10 +166,10 @@ a.about-btn {
 .card {
     width: 450px;
     height: 350px;
-    border: 1px solid white;
+    border: 1px solid #323534;
 }
 
-.hot-coffee-row1, .hot-coffee-row2, .cold-coffee-row1, .cold-coffee-row2, .customers {
+.hot-coffee-row1, .hot-coffee-row2, .cold-coffee-row1, .cold-coffee-row2, .customers, .blogs {
     justify-content: center;
     display: flex;
     flex-flow: row wrap;
@@ -219,7 +219,7 @@ a.cart-btn {
 
 .customer {
     height: 440px;
-    border: 1px solid #969D9B;
+    border-color: #323534;
 }
 
 .customer-img img {
@@ -231,7 +231,6 @@ a.cart-btn {
     font-size: 1.1rem;
     padding: 0 1.4rem;
     line-height: 2rem;
-    color: #969D9B;
     font-family: 'Nunito', sans-serif;
 }
 
@@ -240,7 +239,7 @@ a.cart-btn {
 }
 
 .customer-list h2 {
-    padding-top: 3rem;
+    padding-top: 7rem;
 }
 
 /* CHANGE THIS TO 4.5 STAR */
@@ -262,7 +261,80 @@ a.cart-btn {
 .star::before {
     content: "\2605"; 
     font-size: 25px;
-    color: #D2AB77; 
+    color: #D2AB77;
 }
+
+.contact {
+    margin-bottom: 4rem;
+}
+
+.contact-form {
+    justify-content: center;
+    height: 510px;
+}
+
+.contact-form h3 {
+    font-size: 2.5rem;
+}
+
+.contact-form p, .contact-form h3 {
+    text-align: center;
+}
+
+.contact-form p {
+    line-height: 5.5rem;
+}
+
+input[type="text"], input[type="tel"] {
+    padding: 1rem;
+    width: 630px;
+    height: 65px;
+    background-color: #111219;
+    border: 1px solid #323534;
+    font-size: 1rem;
+}
+
+button {
+    color: white;
+    background-color: #D2AB77;
+    border: none;
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+}
+
+.blog {
+    height: 570px;
+}
+
+.blog-img img {
+    height: 25%;
+    width: 100%;
+}
+
+.blog-info {
+    padding: 1.2rem;
+}
+
+h3.title {
+    font-size: 1.75rem;
+}
+
+h3.author {
+    font-size: 1.2rem;
+    color: #D2AB77;
+    padding-top: 1rem;
+}
+
+.blog-info p {
+    padding-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    text-align: left;
+}
+
+
+
+
+
 
 
