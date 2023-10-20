@@ -265,7 +265,7 @@ a.cart-btn {
 }
 
 .contact {
-    margin-bottom: 4rem;
+    margin-bottom: 1.3rem;
 }
 
 .contact-form {
@@ -292,6 +292,11 @@ input[type="text"], input[type="tel"] {
     background-color: #111219;
     border: 1px solid #323534;
     font-size: 1rem;
+    color: #969D9B;
+}
+
+::placeholder {
+    color: #969D9B;
 }
 
 button {
@@ -331,6 +336,8 @@ h3.author {
     font-size: 1rem;
     text-align: left;
 }
+
+
 
 
 
