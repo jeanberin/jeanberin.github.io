@@ -21,11 +21,11 @@ body {
 }
 
 .topnav img {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     position: fixed;
-    top: 20px;
-    left: 50px;
+    top: 5%;
+    left: 11%;
 }
 
 a {
@@ -96,10 +96,13 @@ button {
     color: white;
     background-color: #D2AB77;
     border: none;
-    padding: 0.9rem 9.1rem;
     font-size: 1rem;
+    font-weight: 600;
     border-radius: 0.3rem;
     cursor: pointer;
+    width: 340px;
+    height: 50px;
+    letter-spacing: 0.03rem;
 }
 
 ::placeholder {

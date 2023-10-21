@@ -34,7 +34,7 @@ body {
 .topnav img {
     margin-top: 0.5rem;
     width: 75px;
-    height: 75px;
+    height: auto;
 }
 
 .top-middle-nav {
@@ -338,7 +338,44 @@ h3.author {
     text-align: left;
 }
 
+.botnav {
+    background-color: #0F0F16;
+    height: 150px;
+    display: flex;
+    flex-flow: column wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
 
+.botnav h3 {
+    font-size: 1.3rem;
+    font-weight: 100;
+}
+
+.socmed i {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid white;
+    padding-top: 0.75rem;
+}
+
+.socmed {
+    display: flex;
+    gap: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    justify-content: center;
+}
+
+.socmed a {
+    color: white;
+}
+
+.socmed a:hover i {
+    background-color: #D2AB77;
+}
 
 
 
