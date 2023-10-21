@@ -292,7 +292,7 @@ input[type="text"], input[type="tel"] {
     background-color: #111219;
     border: 1px solid #323534;
     font-size: 1rem;
-    color: #969D9B;
+    color: white;
 }
 
 ::placeholder {
@@ -305,6 +305,7 @@ button {
     border: none;
     padding: 0.7rem 2rem;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .blog {
