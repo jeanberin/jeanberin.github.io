@@ -88,6 +88,10 @@ input[type="text"], input[type="password"] {
     border-radius: 0.3rem;
 }
 
+input[type="password"] {
+    letter-spacing: 0.1rem;
+}
+
 button {
     color: white;
     background-color: #D2AB77;
@@ -100,6 +104,7 @@ button {
 
 ::placeholder {
     color: #969D9B;
+    letter-spacing: 0rem;
 }
 
 .remember {
