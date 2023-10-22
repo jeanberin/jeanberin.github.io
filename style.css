@@ -301,6 +301,7 @@ button {
     border: none;
     padding: 0.7rem 2rem;
     font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
 }
 
