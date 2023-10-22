@@ -52,20 +52,13 @@ a {
     color: black;
 }
 
-a.sign {
-    border-radius: 2rem;
-    padding: 0.5rem 1.2rem;
-    background-color: black;
-    color: white;
+.topnav i {
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
 }
 
 .topnav a:hover {
     color: green;
-}
-
-a.sign:hover {
-    background-color: #4C4C4C;
-    color: white;
 }
 
 .head-img {
