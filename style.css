@@ -166,12 +166,8 @@ a.about-btn, a.read-btn {
     margin: 1.5rem auto;
 }
 
-.hot-coffee-row2, .cold-coffee-row2 {
-    margin-bottom: 3.3rem;
-}
-
 .hot-coffee-row2 {
-    margin-bottom: 3.3rem;
+    margin-bottom: 3rem;
 }
 
 .menu p, .customer-list p {
@@ -227,29 +223,9 @@ a.cart-btn {
     color: #969D9B;
 }
 
-.customer-list h2 {
-    padding-top: 7rem;
-}
-
-/* CHANGE THIS TO 4.5 STAR */
-.star-rating {
-    display: inline-block;
-    font-size: 0; 
-}
-
-.star {
-    list-style: none; 
-    display: inline-block;
-    width: 25px; 
-    height: 20px;
-    margin: 0;
-    padding-top: 1rem;
-    position: relative;
-}
-
-.star::before {
-    content: "\2605"; 
-    font-size: 25px;
+.star-rating i {
+    font-size: 1.1rem;
+    padding: 1.2rem 0.1rem 0;
     color: #D2AB77;
 }
 
@@ -330,7 +306,7 @@ h3.author {
 
 .botnav {
     background-color: #0F0F16;
-    height: 150px;
+    height: 200px;
     display: flex;
     flex-flow: column wrap;
     gap: 2rem;
