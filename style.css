@@ -24,7 +24,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 2.3rem 10%;
-    height: 80px;
+    height: 8.6vh;
     position: sticky;
     top: 0;
     display: flex;
@@ -70,35 +70,31 @@ a.sign:hover {
 
 .head-img {
     background-image: url("img/heading.jpg");
-    min-height: 91.4vh;
-    background-position: center;
     background-repeat: no-repeat;
+    height: 91.4vh;
+    width: 100%;
+    background-position: center;
     background-size: cover;
-    position: relative;
     display: flex;
-    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 200px 80px;
 }
 
 .text-left {
-    position: absolute;
-    left: 350px;
-    top: 140px;
     font-size: 3.75rem;
     letter-spacing: 0.22rem;
     color: white;
+    margin-bottom: 3rem;
 }
 
 .discover-btn {
-    position: absolute;
-    left: 350px;
-    top: 280px;
     border-radius: 2rem;
     border: 1px solid white;
     color: white;
     padding: 0.5rem 1.6rem;
     font-size: 1.1rem;
-    display: flex;
-    flex-wrap: wrap;
 }
 
 a.discover-btn:hover, a.discover-btn:active {
