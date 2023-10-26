@@ -237,6 +237,10 @@ h3 {
     padding: 2.5rem 2rem;
 }
 
+.about-img img {
+    max-width: 100%;
+}
+
 p {
     padding-top: 2rem;
     font-size: 1.1rem;
@@ -345,14 +349,14 @@ a.cart-btn {
     margin-bottom: 1.3rem;
 }
 
-.map iframe {
-    max-width: 695px;
+.map iframe{
+    max-width: 100%;
 }
 
 .contact-form {
     justify-content: center;
     height: 510px;
-    max-width: 695px;
+    
 }
 
 .contact-form h3 {
