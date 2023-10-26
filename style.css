@@ -15,12 +15,12 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 0.85rem;
     font-weight: bold;
-    background-color: white;
+    background-color: black;
     color: white;
 }
 
 main {
-    background-color: black;
+    
 }
 
 .topnav {
@@ -68,15 +68,15 @@ a {
     left: 10px;
     top: 9px;
     padding: 0;
-}
+} */
 
 input:focus {
     outline: none;
 }
 
-.search-box {
+/* .search-box {
     position: relative;
-} */
+}  */
 
 .topnav i {
     font-size: 1.1rem;
@@ -232,8 +232,8 @@ h3 {
 .about-info, .contact-form {
     background-color: #111219;
     color: #919FA6;
-    width: 695px;
-    height: 481px;
+    max-width: 695px;
+    min-height: 481px;
     padding: 2.5rem 2rem;
 }
 
@@ -345,9 +345,14 @@ a.cart-btn {
     margin-bottom: 1.3rem;
 }
 
+.map iframe {
+    max-width: 695px;
+}
+
 .contact-form {
     justify-content: center;
     height: 510px;
+    max-width: 695px;
 }
 
 .contact-form h3 {
