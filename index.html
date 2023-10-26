@@ -1,378 +1,472 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Shop</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="img/logo1.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-    <div class="topnav">
-        <a href="#"><img src="img/logo.png" alt="logo"></a>
-        <ul class="top-middle-nav">
-            <li><a href="#" class="home">HOME</a></li>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#menu">MENU</a></li>
-            <li><a href="#review">REVIEW</a></li>
-            <li><a href="#contact">CONTACT</a></li>
-            <li><a href="#blogs">BLOGS</a></li>
-        </ul>
-        <div class="topnav-icon">
-            <div class="search-box">
-                <!-- <input type="text" class="search" placeholder="Search..." spellcheck="false"> -->
-                <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-            <a href="sign.html"><i class="fa-solid fa-user"></i></a>
-            <a href="#"><i class="fa-solid fa-bars"></i></a>
-            <ul class="top-middle-nav-repositioned open">
-                <li><a href="#" class="home">HOME</a></li>
-                <li><a href="#about">ABOUT</a></li>
-                <li><a href="#menu">MENU</a></li>
-                <li><a href="#review">REVIEW</a></li>
-                <li><a href="#contact">CONTACT</a></li>
-                <li><a href="#blogs">BLOGS</a></li>
-            </ul>
-        </div>
-    </div>
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Roboto&display=swap');
 
-    <main>
-        <section id="home">
-            <div class="head-img">
-                <div class="text-left">
-                    <h1>Shake Up Your Senses</h1>
-                </div>
-                <div>
-                    <a href="#menu" class="discover-btn">Discover the flavors</a>
-                </div>
-            </div>
-        </section>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        <section id="about">
-            <div class="about">
-                <h2><span class="gold">ABOUT </span>US</h2>
-                <div class="about-content">
-                    <div class="about-img">
-                            <img src="img/about.jpg" width="700">
-                    </div>
-                    <div class="about-info">
-                        <h3>What Makes Our Coffee Special?</h3>
-                        <p>
-                            Our coffee is special for several reasons. First and foremost, we source our beans from the world's finest coffee-growing regions, ensuring the highest quality and unique flavor profiles. Our meticulous roasting process enhances the beans' natural characteristics, resulting in a rich and full-bodied taste. Furthermore, our commitment to sustainable and ethical practices supports both the environment and the livelihood of coffee farmers. The combination of quality, craftsmanship, and ethics makes our coffee truly special.
-                        </p>
-                        <div class="about-btn">
-                            <a href="#" class="about-btn">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+html {
+    scroll-behavior: smooth;
+}
 
-        <section id="menu">
-            <div class="menu">
-                <h2>OUR <span class="gold">MENU</span></h2>
-                <h3>HOT DRINKS</h3>
-                <div class="hot-coffee-row1">
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/hot coffee drinks/caffe misto.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Caffe Misto</p>
-                            <h3>&#x20B1; 175.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/hot coffee drinks/espresso con panna.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Espresso Con Panna</p>
-                            <h3>&#x20B1; 250.00</h3>
-                        </div>
-                        <a href="#" class="cart-btn">Add to Cart</a>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/hot coffee drinks/espresso macchiato.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Espresso Macchiato</p>
-                            <h3 class="discounted">&#x20B1; 280.00<span class="orig-price">&#x20B1; 300.00</span></h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="hot-coffee-row2">
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/hot coffee drinks/flat white.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Flat White</p>
-                            <h3>&#x20B1; 175.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/hot coffee drinks/full leaf brewed tea.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Full Leaf Brewed Tea</p>
-                            <h3>&#x20B1; 85.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/hot coffee drinks/hot brewed coffee.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Hot Brewed Coffee</p>
-                            <h3>&#x20B1; 85.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <h3>COLD DRINKS</h3>
-                <div class="cold-coffee-row1">
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/cold coffee drinks/caramel frapp.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Caramel Frappuccino</p>
-                            <h3>&#x20B1; 175.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/cold coffee drinks/iced cappuccino.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Iced Cappuccino</p>
-                            <h3>&#x20B1; 190.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/cold coffee drinks/iced classic chocolate.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Iced Classic Chocolate</p>
-                            <h3>&#x20B1; 175.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cold-coffee-row2">
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/cold coffee drinks/iced latte.jpeg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Iced Latte</p>
-                            <h3>&#x20B1; 150.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/cold coffee drinks/salted caramel cold brew.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Salted Caramel Cold Brew</p>
-                            <h3>&#x20B1; 120.00</h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="product-img">
-                            <img src="img/cold coffee drinks/strawberries & cream frappuccino.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <p>Strawberries &amp; Cream Frappuccino</p>
-                            <h3 class="discounted">&#x20B1; 175.00<span class="orig-price">&#x20B1; 200.00</span></h3>
-                        </div>
-                        <div class="cart-btn">
-                            <a href="#" class="cart-btn">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+}
 
-        <section id="review">
-            <div class="customer-list">
-                <h2><span class="gold">CUSTOMER'S </span>REVIEW</h2>
-                <div class="customers">
-                    <div class="customer card">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half"></i>
-                        </div>
-                        <div class="customer-img">
-                            <img src="img/clients/man1.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="review-info">
-                            <h3>Dave V.</h3>
-                            <p>
-                                This coffee shop is a hidden gem. Exceptional coffee, cozy ambiance, and friendly staff. A must-visit for coffee enthusiasts seeking a delightful experience.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="customer card">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="customer-img">
-                            <img src="img/clients/woman.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="review-info">
-                            <h3>Jessica D.</h3>
-                            <p>
-                                Outstanding coffee spot with cozy vibes and friendly service. Must visit!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="customer card">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half"></i>
-                        </div>
-                        <div class="customer-img">
-                            <img src="img/clients/man2.jpg" width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="review-info">
-                            <h3>John C.</h3>
-                            <p>
-                                Hidden gem, superb brews, cozy atmosphere, and welcoming staff. A delightful coffee haven.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+main {
+    
+}
 
-        <section id="contact">
-            <div class="contact">
-                <h2>CONTACT <span class="gold">US</span></h2>
-                <div class="contact-content">
-                    <div class="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7726.010916655039!2d120.9844203062733!3d14.484376000000015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ce7de1e2c29f%3A0x90fea17c22b71393!2sStarbucks%20SM%20City%20Sucat!5e0!3m2!1sen!2sph!4v1697783054454!5m2!1sen!2sph" width="695" height="510" style="border:0;" allowfullscreen="" title="map of shop" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="contact-form">
-                        <h3>ANY INQUIRIES?</h3>
-                        <form action="https://httpbin.org/get">
-                            <p>
-                                <input type="text" name="fullname" id="fullname" placeholder="Full Name" spellcheck="false">
-                                <input type="text" id="email" placeholder="Email" spellcheck="false">
-                                <input type="tel" id="number" placeholder="Phone Number" spellcheck="false">
-                            <button type="submit" formaction="https:httpbin.org/pos" formmethod="post">Contact Now</button>
-                            </p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+.topnav {
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.3rem 10%;
+    height: 8.6vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    z-index: 1;
+}
 
-        <section id="blogs">
-            <div class="blog-list">
-                <h2><span class="gold">OUR </span>BLOGS</h2>
-                <div class="blogs">
-                    <div class="blog card">
-                        <div class="blog-img">
-                            <img src="img/blogs/blog1.jpg" width="100" height="100">
-                        </div>
-                        <div class="blog-info">
-                            <h3 class="title">Joy of Making Coffee</h3>
-                            <h3 class="author">By Jean Berin / 2nd May, 2023</h3>
-                            <p>
-                                Crafting the perfect cup of coffee is a daily ritual for many.
-                            </p>
-                            <a href="#" class="read-btn">Read More</a>
-                        </div>
-                    </div>
-                    <div class="blog card">
-                        <div class="blog-img">
-                            <img src="img/blogs/blog2.jpg" width="100" height="100">
-                        </div>
-                        <div class="blog-info">
-                            <h3 class="title">Why is Coffee Delicious?</h3>
-                            <h3 class="author">By Jean Berin / 16th July, 2023</h3>
-                            <p>
-                                Coffee's delightful allure lies in its complex and captivating flavor profile.
-                            </p>
-                            <a href="#" class="read-btn">Read More</a>
-                        </div>
-                    </div>
-                    <div class="blog card">
-                        <div class="blog-img">
-                            <img src="img/blogs/blog3.jpg" width="100" height="100">
-                        </div>
-                        <div class="blog-info">
-                            <h3 class="title">Coffee Love</h3>
-                            <h3 class="author">By Jean Berin / 2nd Oct, 2023</h3>
-                            <p>
-                                Coffee, with its aromatic embrace and caffeine's comforting kiss, inspires unwavering devotion.
-                            </p>
-                            <a href="#" class="read-btn">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+.topnav img {
+    margin-top: 0.5rem;
+    width: 75px;
+    height: auto;
+}
 
-    <footer>
-        <div class="botnav">
-            <div class="socmed">
-                <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-                <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-            </div>
-            <div class="credits">
-                <h3>Created By <span class="gold">Jean Berin</span> | All Rights Reserved</h3>
-            </div>
-        </div>
-    </footer>
-    <script src="script.js"></script>
-</body>
-</html>
+.top-middle-nav {
+    word-spacing: 2rem;
+    letter-spacing: 0.17rem;
+    list-style: none;
+}
+
+.top-middle-nav li {
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* input.search[type=text] {
+    width: 300px;
+    height: 25px;
+    background-color: white;
+    font-size: 15px;
+    color: #969D9B;
+    position: absolute;
+    z-index: 1;
+    border: none;
+    left: 10px;
+    top: 9px;
+    padding: 0;
+} */
+
+input:focus {
+    outline: none;
+}
+
+/* .search-box {
+    position: relative;
+}  */
+
+.topnav i {
+    font-size: 1.1rem;
+}
+
+.topnav i.fa-magnifying-glass {
+    /* padding: 0.7rem;
+    width: 350px;
+    border: 1px solid black;
+    border-radius: 2rem;
+    text-align: right; */
+    position: relative;
+}
+
+.topnav i.fa-bars {
+    display: none;
+}
+
+.topnav-icon {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-middle-nav-repositioned {
+    display: none;
+}
+
+
+
+.topnav a:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 953px) {
+    .topnav {
+        padding: 2.3rem;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .topnav {
+        padding: 2.3rem 1rem;
+        height: 6vh;
+    }
+
+    .top-middle-nav {
+        display: none;
+    }
+
+    .topnav i.fa-bars {
+        display: block;
+    }
+
+    /* when menu bar is clicked */
+    .top-middle-nav-repositioned {
+        list-style-type: none;
+        background-color: #D2AB77;
+        opacity: 0.8;
+        display: inline-block;
+        position: absolute;
+        margin-top: 0.7rem;
+        top: 9vh;
+        right: -100%;
+        text-align: left;
+        width: 200px;
+        height: 190px;
+        border-radius: 1rem;
+        transition: all .50s ease;
+        padding: 1rem;
+
+        /* remove if menu bar is working */
+        display: none;
+    }
+
+    li {
+        font-size: 1.1rem;
+        color: white;
+        padding-bottom: 0.4rem
+    }
+
+    .top-middle-nav-repositioned li:last-child {
+        padding-bottom: 0;
+    }
+
+    .open {
+        right: 1rem;
+    }
+
+    h1 {
+        font-size: 5rem;
+    }
+}
+
+.head-img {
+    background-image: url("img/heading.jpg");
+    background-repeat: no-repeat;
+    height: 91.4vh;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 200px 80px;
+}
+
+.text-left {
+    font-size: 3.75rem;
+    letter-spacing: 0.13rem;
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.discover-btn {
+    border-radius: 2rem;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem 1.6rem;
+    font-size: 1.1rem;
+}
+
+a.discover-btn:hover, a.discover-btn:active {
+    color: white;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.about-content, .contact-content{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+h2 {
+    font-size: 3.75rem;
+    text-align: center;
+    padding: 7rem 0 2rem;
+}
+
+h3 {
+    color: white;
+    font-size: 2rem;
+}
+
+.gold {
+    color: #D2AB77;
+}
+
+.about-info, .contact-form {
+    background-color: #111219;
+    color: #919FA6;
+    max-width: 695px;
+    min-height: 481px;
+    padding: 2.5rem 2rem;
+}
+
+.about-img img {
+    max-width: 100%;
+}
+
+p {
+    padding-top: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    line-height: 2.3rem;
+    text-align: justify;
+}
+
+a.about-btn, a.read-btn {
+    color: white;
+    background-color: #D2AB77;
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+    
+}
+
+.product-img img{
+    border-radius: 50%;
+    margin: 2rem auto 0;
+}
+
+.menu, .customer-list {
+    text-align: center;
+    align-items: center;
+    
+}
+
+.card {
+    width: 450px;
+    height: 350px;
+    border: 1px solid #323534;
+}
+
+.hot-coffee-row1, .hot-coffee-row2, .cold-coffee-row1, .cold-coffee-row2, .customers, .blogs {
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.3rem;
+    margin: 1.5rem auto;
+}
+
+.hot-coffee-row2 {
+    margin-bottom: 3rem;
+}
+
+.menu p, .customer-list p {
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.menu h3, .customer-list h3 {
+    font-size: 2rem;
+    margin: 0 auto 1.6rem;
+}
+
+h3.discounted {
+    text-align: center;
+    padding-left: 8rem;
+}
+
+.orig-price {
+    text-decoration: line-through;
+    padding-left: 2.4rem;
+    color: #858787;
+    font-size: 1.4rem;
+}
+
+a.cart-btn {
+    color: white;
+    background-color: #D2AB77;
+    top: 500px;
+    padding: 0.6rem 1.8rem;
+    font-size: 1rem;
+}
+
+.customer {
+    height: 440px;
+    border-color: #323534;
+}
+
+.customer-img img {
+    border-radius: 50%;
+    margin: 2rem auto 0.8rem 0;
+}
+
+.customer p {
+    font-size: 1.1rem;
+    padding: 0 1.4rem;
+    line-height: 2rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.customer h3, .customer p {
+    color: #969D9B;
+}
+
+.star-rating i {
+    font-size: 1.1rem;
+    padding: 1.2rem 0.1rem 0;
+    color: #D2AB77;
+}
+
+.contact {
+    margin-bottom: 1.3rem;
+}
+
+.map iframe{
+    max-width: 100%;
+}
+
+.contact-form {
+    justify-content: center;
+    height: 510px;
+    
+}
+
+.contact-form h3 {
+    font-size: 2.5rem;
+}
+
+.contact-form p, .contact-form h3 {
+    text-align: center;
+}
+
+.contact-form p {
+    line-height: 5.5rem;
+}
+
+input[type="text"], input[type="tel"] {
+    padding: 1rem;
+    width: 630px;
+    height: 65px;
+    background-color: #111219;
+    border: 1px solid #323534;
+    font-size: 1rem;
+    color: white;
+}
+
+::placeholder {
+    color: #969D9B;
+}
+
+button {
+    color: white;
+    background-color: #D2AB77;
+    border: none;
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.blog {
+    height: 570px;
+}
+
+.blog-img img {
+    height: 25%;
+    width: 100%;
+}
+
+.blog-info {
+    padding: 1.2rem;
+}
+
+h3.title {
+    font-size: 1.75rem;
+}
+
+h3.author {
+    font-size: 1.2rem;
+    color: #D2AB77;
+    padding-top: 1rem;
+}
+
+.blog-info p {
+    padding-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.botnav {
+    background-color: #0F0F16;
+    height: 200px;
+    display: flex;
+    flex-flow: column wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.botnav h3 {
+    font-size: 1.3rem;
+    font-weight: 100;
+}
+
+.socmed i {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid white;
+    padding-top: 0.75rem;
+}
+
+.socmed {
+    display: flex;
+    gap: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    justify-content: center;
+}
+
+.socmed a {
+    color: white;
+}
+
+.socmed a:hover i {
+    background-color: #D2AB77;
+}
+
+
+
+
+
+
+
