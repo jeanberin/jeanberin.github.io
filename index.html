@@ -13,19 +13,34 @@
         <a href="#"><img src="img/logo.png" alt="logo"></a>
         <ul class="top-middle-nav">
             <li><a href="#" class="home">HOME</a></li>
-            <li><a href="#about" class="about">ABOUT</a></li>
-            <li><a href="#menu" class="menu">MENU</a></li>
-            <li><a href="#review" class="review">REVIEW</a></li>
-            <li><a href="#contact" class="contact">CONTACT</a></li>
-            <li><a href="#blogs" class="blogs">BLOGS</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#menu">MENU</a></li>
+            <li><a href="#review">REVIEW</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li><a href="#blogs">BLOGS</a></li>
         </ul>
         <div class="topnav-icon">
             <div class="search-box">
-                <input type="text" class="search" placeholder="Search..." spellcheck="false">
+                <!-- <input type="text" class="search" placeholder="Search..." spellcheck="false"> -->
                 <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
             </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-            <a href="sign.html"><i class="fa-solid fa-user"></i></a>
+            <div>
+                <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+            </div>
+            <div>
+                <a href="sign.html"><i class="fa-solid fa-user"></i></a>
+            </div>
+            <div class="drop-down">
+                <a href="#0"><i class="fa-solid fa-bars"></i></a>
+                <ul class="top-middle-nav-repositioned open">
+                    <li><a href="#" class="home">HOME</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#menu">MENU</a></li>
+                    <li><a href="#review">REVIEW</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="#blogs">BLOGS</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -225,13 +240,6 @@
                 <div class="customers">
                     <div class="customer card">
                         <div class="star-rating">
-                            <!-- <ul>
-                                <li class="star"></li>
-                                <li class="star"></li>
-                                <li class="star"></li>
-                                <li class="star"></li>
-                                <li class="star"></li>
-                            </ul> -->
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -302,7 +310,7 @@
                                 <input type="text" name="fullname" id="fullname" placeholder="Full Name" spellcheck="false">
                                 <input type="text" id="email" placeholder="Email" spellcheck="false">
                                 <input type="tel" id="number" placeholder="Phone Number" spellcheck="false">
-                            <button type="submit" formaction="https:httpbin.org/pos" formmethod="post">Contact Now</button>
+                                <button type="submit" formaction="https:httpbin.org/pos" formmethod="post">Contact Now</button>
                             </p>
                         </form>
                     </div>

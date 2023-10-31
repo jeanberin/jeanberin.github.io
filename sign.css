@@ -20,14 +20,6 @@ body {
     justify-content: flex-start;
 }
 
-.topnav img {
-    width: 110px;
-    height: 110px;
-    position: absolute;
-    top: 5%;
-    left: 11%;
-}
-
 a {
     text-decoration: none;
     color: black;
@@ -47,12 +39,20 @@ a {
     text-align: center;
 }
 
+.topnav img {
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    top: 2%;
+    left: 11%;
+}
+
 .sign-form {
     background-color: rgba(0, 0, 0, 0.7);
-    height: 670px;
+    height: 600px;
     width: 470px;
     padding: 4rem;
-    margin-top: 4rem;
+    margin-top: 8%;
 }
 
 .sign-form p {
@@ -64,18 +64,6 @@ a {
     text-align: left;
     font-size: 2rem;
     letter-spacing: 0.1rem;
-}
-
-p.password {
-    padding-bottom: 1.7rem;
-}
-
-p.sign {
-    padding-bottom: 0rem;
-}
-
-p.remember-btn {
-    text-align: left;
 }
 
 input[type="text"], input[type="password"] {
@@ -93,8 +81,23 @@ input[type="password"] {
     letter-spacing: 0.1rem;
 }
 
-input:focus {
-    outline: none;
+p.sign {
+    padding-bottom: 0rem;
+}
+
+p.remember-btn {
+    text-align: left;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1.7rem;
+}
+
+a.forgot {
+    color: white;
+    text-decoration: underline;
 }
 
 button {
@@ -119,6 +122,6 @@ button {
     accent-color: #333333;
 }
 
-label {
+label, a.forgot {
     color: #969D9B;
 }
