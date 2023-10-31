@@ -238,13 +238,38 @@ h3 {
 .about-info, .contact-form {
     background-color: #111219;
     color: #919FA6;
-    max-width: 695px;
-    min-height: 481px;
     padding: 2.5rem 2rem;
 }
 
-.about-img img {
-    max-width: 100%;
+.about-img img, .about-info, .contact-form {
+    width: 695px;
+    min-height: 481px;
+}
+
+@media screen and (max-width: 420px) {
+    :root {
+        font-size: 0.8rem;
+    }
+
+    .about-info, .about-img img, .map, .contact-form {
+        width: 350px;
+        min-height: 300px
+    }
+
+    .card {
+        width: 350px;
+        min-height: 100px;
+    }
+
+    .top-middle-nav-repositioned {
+        height: 210px;
+    }
+
+    .topnav img {
+        margin-top: 0.5rem;
+        width: 50px;
+        height: auto;
+    }
 }
 
 p {
@@ -401,6 +426,13 @@ button {
     cursor: pointer;
 }
 
+@media screen and (max-width: 420px) {
+    input[type="text"], input[type="tel"] {
+        width: 310px;
+    }
+    
+}
+
 .blog {
     height: 570px;
 }
@@ -470,6 +502,24 @@ h3.author {
     background-color: #D2AB77;
 }
 
+@media screen and (max-width: 730px) {
+    .socmed i {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: 1px solid white;
+        padding-top: 0.75rem;
+    }
+    
+    .socmed {
+        display: flex;
+        gap: 1rem;
+        text-align: center;
+        font-size: 1.5rem;
+        justify-content: center;
+    }
+
+}
 
 
 
