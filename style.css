@@ -7,8 +7,16 @@
     box-sizing: border-box;
 }
 
+/* ADD MEDIA QUERIES */
+
 html {
     scroll-behavior: smooth;
+}
+
+@media (max-width: 1050px) {
+    .topnav {
+        font-size: 0.7rem;
+    }
 }
 
 body {
@@ -17,10 +25,6 @@ body {
     font-weight: bold;
     background-color: black;
     color: white;
-}
-
-main {
-    
 }
 
 .topnav {
@@ -56,7 +60,7 @@ a {
     color: black;
 }
 
-/* input.search[type=text] {
+input.search[type=text] {
     width: 300px;
     height: 25px;
     background-color: white;
@@ -68,31 +72,27 @@ a {
     left: 10px;
     top: 9px;
     padding: 0;
-} */
+}
 
 input:focus {
     outline: none;
 }
 
-/* .search-box {
+.search-box {
     position: relative;
-}  */
+}
 
 .topnav i {
     font-size: 1.1rem;
 }
 
 .topnav i.fa-magnifying-glass {
-    /* padding: 0.7rem;
+    padding: 0.7rem;
     width: 350px;
     border: 1px solid black;
     border-radius: 2rem;
-    text-align: right; */
     position: relative;
-}
-
-.topnav i.fa-bars {
-    display: none;
+    text-align: right;
 }
 
 .topnav-icon {
@@ -103,74 +103,8 @@ input:focus {
     align-items: center;
 }
 
-.top-middle-nav-repositioned {
-    display: none;
-}
-
-
-
-.topnav a:hover {
-    opacity: 0.8;
-}
-
-@media screen and (max-width: 953px) {
-    .topnav {
-        padding: 2.3rem;
-    }
-}
-
-@media screen and (max-width: 860px) {
-    .topnav {
-        padding: 2.3rem 1rem;
-        height: 6vh;
-    }
-
-    .top-middle-nav {
-        display: none;
-    }
-
-    .topnav i.fa-bars {
-        display: block;
-    }
-
-    /* when menu bar is clicked */
-    .top-middle-nav-repositioned {
-        list-style-type: none;
-        background-color: #D2AB77;
-        opacity: 0.8;
-        display: inline-block;
-        position: absolute;
-        margin-top: 0.7rem;
-        top: 9vh;
-        right: -100%;
-        text-align: left;
-        width: 200px;
-        height: 190px;
-        border-radius: 1rem;
-        transition: all .50s ease;
-        padding: 1rem;
-
-        /* remove if menu bar is working */
-        display: none;
-    }
-
-    li {
-        font-size: 1.1rem;
-        color: white;
-        padding-bottom: 0.4rem
-    }
-
-    .top-middle-nav-repositioned li:last-child {
-        padding-bottom: 0;
-    }
-
-    .open {
-        right: 1rem;
-    }
-
-    h1 {
-        font-size: 5rem;
-    }
+.topnav a:hover, .topnav i:hover {
+    color: green;
 }
 
 .head-img {
@@ -232,13 +166,9 @@ h3 {
 .about-info, .contact-form {
     background-color: #111219;
     color: #919FA6;
-    max-width: 695px;
-    min-height: 481px;
+    width: 695px;
+    height: 481px;
     padding: 2.5rem 2rem;
-}
-
-.about-img img {
-    max-width: 100%;
 }
 
 p {
@@ -246,7 +176,7 @@ p {
     font-size: 1.1rem;
     margin-bottom: 2.5rem;
     line-height: 2.3rem;
-    text-align: justify;
+    text-align: left;
 }
 
 a.about-btn, a.read-btn {
@@ -273,6 +203,16 @@ a.about-btn, a.read-btn {
     height: 350px;
     border: 1px solid #323534;
 }
+
+.menu .card:hover {
+    background-color: white;
+    color: black;
+}
+
+.menu .card:hover h3 {
+    color: black;
+}
+
 
 .hot-coffee-row1, .hot-coffee-row2, .cold-coffee-row1, .cold-coffee-row2, .customers, .blogs {
     justify-content: center;
@@ -349,14 +289,9 @@ a.cart-btn {
     margin-bottom: 1.3rem;
 }
 
-.map iframe{
-    max-width: 100%;
-}
-
 .contact-form {
     justify-content: center;
     height: 510px;
-    
 }
 
 .contact-form h3 {
