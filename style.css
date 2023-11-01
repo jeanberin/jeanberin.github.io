@@ -251,14 +251,9 @@ h3 {
         font-size: 0.8rem;
     }
 
-    .about-info, .about-img img, .map, .contact-form {
+    .about-info, .about-img img {
         width: 350px;
         min-height: 300px
-    }
-
-    .card {
-        width: 350px;
-        min-height: 100px;
     }
 
     .top-middle-nav-repositioned {
@@ -303,6 +298,13 @@ a.about-btn, a.read-btn {
     width: 450px;
     height: 350px;
     border: 1px solid #323534;
+}
+
+@media screen and (max-width: 420px) {
+    .card {
+        width: 350px;
+        min-height: 100px;
+    }
 }
 
 .hot-coffee-row1, .hot-coffee-row2, .cold-coffee-row1, .cold-coffee-row2, .customers, .blogs {
@@ -426,15 +428,27 @@ button {
     cursor: pointer;
 }
 
+.blog {
+    height: 570px;
+}
+
 @media screen and (max-width: 420px) {
+
+    .contact-content {
+        gap: 0.8rem;
+    }
+    .map, .contact-form {
+        width: 350px;
+        height: 500px
+    }
+
     input[type="text"], input[type="tel"] {
         width: 310px;
     }
-    
-}
 
-.blog {
-    height: 570px;
+    .blog {
+        height: 500px;
+    }
 }
 
 .blog-img img {
