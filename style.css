@@ -525,7 +525,8 @@ h3.author {
     width: 50px;
     border-radius: 50%;
     border: 1px solid white;
-    padding-top: 0.75rem;
+    /* padding-top: 0.75rem; */
+    line-height: 50px;
 }
 
 .socmed {
@@ -550,7 +551,7 @@ h3.author {
         width: 40px;
         border-radius: 50%;
         border: 1px solid white;
-        padding-top: 0.75rem;
+        line-height: 40px;
     }
     
     .socmed {
