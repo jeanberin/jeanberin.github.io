@@ -381,6 +381,13 @@ a.cart-btn {
     color: #D2AB77;
 }
 
+@media screen and (max-width: 500px) {
+    .customer {
+        height: 370px;
+    }
+
+}
+
 .contact {
     margin-bottom: 1.3rem;
 }
@@ -436,7 +443,6 @@ button {
 }
 
 @media screen and (max-width: 500px) {
-
     .contact-content {
         text-align: center;
     }
@@ -525,7 +531,6 @@ h3.author {
     width: 50px;
     border-radius: 50%;
     border: 1px solid white;
-    /* padding-top: 0.75rem; */
     line-height: 50px;
 }
 
