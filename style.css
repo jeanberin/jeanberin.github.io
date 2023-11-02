@@ -19,10 +19,6 @@ body {
     color: white;
 }
 
-main {
-    
-}
-
 .topnav {
     background-color: white;
     justify-content: space-between;
@@ -107,10 +103,42 @@ input:focus {
     display: none;
 }
 
-
-
 .topnav a:hover {
     opacity: 0.8;
+}
+
+.head-img {
+    background-image: url("img/heading.jpg");
+    background-repeat: no-repeat;
+    height: 91.4vh;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 200px 80px;
+}
+
+.text-on-image {
+    font-size: 3.75rem;
+    letter-spacing: 0.13rem;
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.discover-btn {
+    border-radius: 2rem;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem 1.6rem;
+    font-size: 1.1rem;
+}
+
+a.discover-btn:hover, a.discover-btn:active {
+    color: white;
+    background-color: rgba(255,255,255,0.1);
 }
 
 @media screen and (max-width: 953px) {
@@ -174,43 +202,13 @@ input:focus {
         right: 1rem;
     }
 
+    .head-img {
+        height: 100vh;
+    }
+
     h1 {
         font-size: 5rem;
     }
-}
-
-.head-img {
-    background-image: url("img/heading.jpg");
-    background-repeat: no-repeat;
-    height: 91.4vh;
-    width: 100%;
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
-    padding: 200px 80px;
-}
-
-.text-left {
-    font-size: 3.75rem;
-    letter-spacing: 0.13rem;
-    color: white;
-    margin-bottom: 3rem;
-}
-
-.discover-btn {
-    border-radius: 2rem;
-    border: 1px solid white;
-    color: white;
-    padding: 0.5rem 1.6rem;
-    font-size: 1.1rem;
-}
-
-a.discover-btn:hover, a.discover-btn:active {
-    color: white;
-    background-color: rgba(255,255,255,0.1);
 }
 
 .about-content, .contact-content{
@@ -241,18 +239,23 @@ h3 {
     padding: 2.5rem 2rem;
 }
 
-.about-img img, .about-info, .contact-form {
+.about-img img, .about-info {
     width: 695px;
     min-height: 481px;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 500px) {
     :root {
         font-size: 0.8rem;
     }
 
+    .head-img {
+        text-align: left;
+
+    }
+
     .about-info, .about-img img {
-        width: 350px;
+        width: 100%;
         min-height: 300px
     }
 
@@ -261,9 +264,9 @@ h3 {
     }
 
     .topnav img {
-        margin-top: 0.5rem;
-        width: 50px;
-        height: auto;
+        /* margin-top: 0.5rem; */
+        width: 60px;
+        height: 60px;
     }
 }
 
@@ -300,7 +303,7 @@ a.about-btn, a.read-btn {
     border: 1px solid #323534;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 500px) {
     .card {
         width: 350px;
         min-height: 100px;
@@ -386,10 +389,10 @@ a.cart-btn {
     max-width: 100%;
 }
 
-.contact-form {
+.contact-form, .map {
     justify-content: center;
     height: 510px;
-    
+    width: 695px;
 }
 
 .contact-form h3 {
@@ -432,22 +435,47 @@ button {
     height: 570px;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 500px) {
 
     .contact-content {
-        gap: 0.8rem;
-    }
-    .map, .contact-form {
-        width: 350px;
-        height: 500px
+        text-align: center;
     }
 
+    .map {
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 75%;
+        height: 0;
+    }
+
+    .contact-form {
+        width: 100%;
+        height: 350px; 
+    }
+
+    .map iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    } 
+ 
     input[type="text"], input[type="tel"] {
-        width: 310px;
+        width: 320px;
+        height: 40px;
+    }
+
+    .contact-form p {
+        line-height: 4rem;
     }
 
     .blog {
         height: 500px;
+    }
+
+    button {
+        margin-top: 2rem;
     }
 }
 
@@ -531,6 +559,10 @@ h3.author {
         text-align: center;
         font-size: 1.5rem;
         justify-content: center;
+    }
+
+    .botnav {
+        height: 130px;
     }
 
 }
