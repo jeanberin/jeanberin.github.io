@@ -171,7 +171,7 @@ a.discover-btn:hover, a.discover-btn:active {
         width: 200px;
         height: 270px;
         border-radius: 1rem;
-        transition: all .50s ease;
+        /* transition: all .50s ease; */
         padding: 1rem;
     }
 
@@ -244,30 +244,30 @@ h3 {
     min-height: 481px;
 }
 
+@media screen and (max-width: 695px) {
+    .about-info, .about-img, .about-img img {
+        width: 100%;
+        min-height: 300px;
+    }
+}
+
 @media screen and (max-width: 500px) {
     :root {
         font-size: 0.8rem;
     }
 
-    .head-img {
-        text-align: left;
-
-    }
-
-    .about-info, .about-img img {
-        width: 100%;
-        min-height: 300px
+    .topnav img {
+        width: 60px;
+        height: 60px;
     }
 
     .top-middle-nav-repositioned {
         height: 210px;
     }
 
-    .topnav img {
-        /* margin-top: 0.5rem; */
-        width: 60px;
-        height: 60px;
-    }
+    .head-img {
+        text-align: left;
+    }   
 }
 
 p {
@@ -385,7 +385,6 @@ a.cart-btn {
     .customer {
         height: 370px;
     }
-
 }
 
 .contact {
@@ -440,6 +439,12 @@ button {
 
 .blog {
     height: 570px;
+}
+
+@media screen and (max-width: 694px) {
+    input[type="text"], input[type="tel"] {
+        width: 440px;
+    }
 }
 
 @media screen and (max-width: 500px) {
