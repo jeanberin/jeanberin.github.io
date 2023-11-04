@@ -397,12 +397,12 @@ a.cart-btn {
 
 .contact-form {
     display: flex;
-    flex-direction: column;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 .contact-form div {
     margin: 1rem;
-    text-align: center;
 }
 
 .contact-form div:first-child {
@@ -411,7 +411,10 @@ a.cart-btn {
 
 .contact-form div:nth-child(3) {
     margin-bottom: 2rem;
+}
 
+.contact-form div:last-child {
+    text-align: center;
 }
 
 .contact-form, .map {
@@ -492,8 +495,8 @@ button {
         height: 40px;
     }
 
-    .contact-form p {
-        line-height: 4rem;
+    .contact-form div:nth-child(3) {
+        margin-bottom: -1rem;
     }
 
     .blog {
