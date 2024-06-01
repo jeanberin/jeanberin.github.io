@@ -128,10 +128,6 @@ a.discover-btn:hover, a.discover-btn:active {
         height: 6vh;
     }
 
-    /* .top-middle-nav {
-        display: none;
-    } */
-
     .topnav i.fa-bars {
         display: block;
     }
@@ -150,7 +146,7 @@ a.discover-btn:hover, a.discover-btn:active {
     }
 
     .top-middle-nav.active {
-        height: 450px;
+        height: 100%;
 
     }
 
