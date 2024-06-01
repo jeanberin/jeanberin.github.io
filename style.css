@@ -52,38 +52,15 @@ a {
     color: black;
 }
 
-/* input.search[type=text] {
-    width: 300px;
-    height: 25px;
-    background-color: white;
-    font-size: 15px;
-    color: #969D9B;
-    position: absolute;
-    z-index: 1;
-    border: none;
-    left: 10px;
-    top: 9px;
-    padding: 0;
-} */
-
 input:focus {
     outline: none;
 }
-
-/* .search-box {
-    position: relative;
-}  */
 
 .topnav i {
     font-size: 1.1rem;
 }
 
 .topnav i.fa-magnifying-glass {
-    /* padding: 0.7rem;
-    width: 350px;
-    border: 1px solid black;
-    border-radius: 2rem;
-    text-align: right; */
     position: relative;
 }
 
@@ -99,13 +76,11 @@ input:focus {
     align-items: center;
 }
 
-.top-middle-nav-repositioned {
-    display: none;
+.topnav a:hover {
+    color: #D2AB77
 }
 
-.topnav a:hover {
-    opacity: 0.8;
-}
+
 
 .head-img {
     background-image: url("img/heading.jpg");
@@ -153,30 +128,44 @@ a.discover-btn:hover, a.discover-btn:active {
         height: 6vh;
     }
 
-    .top-middle-nav {
+    /* .top-middle-nav {
         display: none;
-    }
+    } */
 
     .topnav i.fa-bars {
         display: block;
     }
 
-    .top-middle-nav-repositioned {
-        display: none;
-        list-style-type: none;
-        background-color: rgb(255, 255, 255, 0.9);
-        opacity: 0.8;
-        position: absolute;
+    ul {
+        position: fixed;
+        width: 100%;
+        height: 65%;
+        background: white;
+        top: 67px;
+        left: -100%;
         text-align: center;
-        width: 200px;
-        height: 270px;
-        border-radius: 1rem;
-        /* transition: all .50s ease; */
-        padding: 1rem;
+        transition: all .5s;
+        overflow: hidden;
+
     }
 
-    .drop-down:hover .top-middle-nav-repositioned {
+    .top-middle-nav.active {
+        height: 450px;
+
+    }
+
+    .top-middle-nav li {
         display: block;
+        margin: 40px;
+    }
+
+    .top-middle-nav li a:hover {
+        color: #D2AB77;
+    }
+
+    #hamburger-menu:checked ~ ul {
+        left: 0;
+
     }
 
     li {
@@ -187,15 +176,6 @@ a.discover-btn:hover, a.discover-btn:active {
 
     li:first-child {
         padding-top: 1.5rem;
-    }
-
-    /* .top-middle-nav-repositioned a:hover, .top-middle-nav-repositioned a:focus {
-        transform: scale(3);
-        transition: all 0.3s;
-    }  */
-
-    .top-middle-nav-repositioned li:last-child {
-        padding-bottom: 0;
     }
 
     .open {
@@ -261,13 +241,14 @@ h3 {
         height: 60px;
     }
 
-    .top-middle-nav-repositioned {
-        height: 210px;
-    }
-
     .head-img {
         text-align: left;
-    }   
+    }
+    
+    ul {
+        top: 60px;
+    }
+    
 }
 
 p {
