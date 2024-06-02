@@ -95,6 +95,7 @@ input:focus {
     width: 250px;
     padding: 15px;
     height: 100vh;
+    /* transition: all 0.5s; */
 
 }
 
@@ -156,10 +157,6 @@ a.discover-btn:hover, a.discover-btn:active {
 
     .topnav i.fa-bars {
         display: block;
-    }
-
-    .sidebar {
-        display: flex;
     }
 
     .top-middle-nav.active {
