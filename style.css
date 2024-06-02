@@ -83,19 +83,19 @@ input:focus {
 
 .sidebar {
     position: fixed;
-    display: none;
+    display: flex;
     backdrop-filter: blur(10px);
     background-color: rgba(255,255,255,0.1);
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     top: 0;
-    right: 0;
+    right: -100%;
     list-style: none;
     width: 250px;
     padding: 15px;
     height: 100vh;
-    /* transition: all 0.5s; */
+    transition: all 0.5s;
 
 }
 
