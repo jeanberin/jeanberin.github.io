@@ -29,6 +29,7 @@ body {
     top: 0;
     display: flex;
     z-index: 1;
+    width: 100%;
 }
 
 .topnav img {
@@ -79,6 +80,31 @@ input:focus {
 .topnav a:hover {
     color: #D2AB77
 }
+
+.sidebar {
+    position: fixed;
+    display: none;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,0.1);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    top: 0;
+    right: 0;
+    list-style: none;
+    width: 250px;
+    padding: 15px;
+    height: 100vh;
+
+}
+
+
+.sidebar li {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.3rem;
+}
+
 
 
 
@@ -132,22 +158,17 @@ a.discover-btn:hover, a.discover-btn:active {
         display: block;
     }
 
-    ul {
-        position: fixed;
-        width: 100%;
-        height: 65%;
-        background: white;
-        top: 67px;
-        left: -100%;
-        text-align: center;
-        transition: all .5s;
-        overflow: hidden;
-
+    .sidebar {
+        display: flex;
     }
 
     .top-middle-nav.active {
         height: 100%;
 
+    }
+
+    .top-middle-nav {
+        display: none;
     }
 
     .top-middle-nav li {
@@ -185,6 +206,19 @@ a.discover-btn:hover, a.discover-btn:active {
     h1 {
         font-size: 5rem;
     }
+}
+
+@media (max-width: 400px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 325px) {
+    .discover-btn {
+        font-size: 0.8rem;
+    }
+
 }
 
 .about-content, .contact-content{
@@ -572,7 +606,6 @@ h3.author {
     }
 
 }
-
 
 
 

@@ -12,12 +12,12 @@
     <div class="topnav">
         <a href="#"><img src="img/logo.png" alt="logo"></a>
         <ul class="top-middle-nav">
-            <li><a href="#" class="home">HOME</a></li>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#menu">MENU</a></li>
-            <li><a href="#review">REVIEW</a></li>
-            <li><a href="#contact">CONTACT</a></li>
-            <li><a href="#blogs">BLOGS</a></li>
+            <li class="hideOnMobile"><a href="#" class="home">HOME</a></li>
+            <li class="hideOnMobile"><a href="#about">ABOUT</a></li>
+            <li class="hideOnMobile"><a href="#menu">MENU</a></li>
+            <li class="hideOnMobile"><a href="#review">REVIEW</a></li>
+            <li class="hideOnMobile"><a href="#contact">CONTACT</a></li>
+            <li class="hideOnMobile"><a href="#blogs">BLOGS</a></li>
         </ul>
         <div class="topnav-icon">
             <div class="search-box">
@@ -30,20 +30,18 @@
                 <a href="sign.html"><i class="fa-solid fa-user"></i></a>
             </div>
             <div class="drop-down">
-                <a href="#0" id="hamburger-menu"><i class="fa-solid fa-bars"></i></a>
+                <a href="#0" id="hamburger-menu"><i class="fa-solid fa-bars" onclick="openSidebar()"></i></a>
             </div>
-            <!-- <div class="drop-down">
-                <a href="#0"><i class="fa-solid fa-bars"></i></a>
-                <ul class="top-middle-nav-repositioned open">
-                    <li><a href="#" class="home">HOME</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#menu">MENU</a></li>
-                    <li><a href="#review">REVIEW</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
-                    <li><a href="#blogs">BLOGS</a></li>
-                </ul>
-            </div> -->
         </div>
+        <ul class="sidebar">
+            <li onclick="closeSidebar()"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></li>
+            <li><a href="#" class="home">HOME</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#menu">MENU</a></li>
+            <li><a href="#review">REVIEW</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li><a href="#blogs">BLOGS</a></li>
+        </ul>
     </div>
 
     <main>

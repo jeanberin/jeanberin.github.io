@@ -1,11 +1,8 @@
-let hamburger = document.querySelector(".drop-down");
-let navbar = document.querySelector("ul")
-hamburger.onclick = function() {
-  if (navbar.style.left === "-100%") {
-    navbar.style.left = "0";
-  } else {
-    navbar.style.left = "-100%";
-  }
+const sidebar = document.querySelector(".sidebar");
 
+function openSidebar() {
+  sidebar.style.display = "flex";
 }
-
+function closeSidebar() {
+  sidebar.style.display = "none";
+}
