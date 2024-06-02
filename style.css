@@ -110,16 +110,7 @@ input:focus {
 
 svg {
     cursor: pointer;
-    
 }
-
-svg:hover {
-    color: #D2AB77;
-
-}
-
-
-
 
 .head-img {
     background-image: url("img/heading.jpg");
