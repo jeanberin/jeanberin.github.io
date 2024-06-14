@@ -323,7 +323,7 @@ a.discover-btn:hover, a.discover-btn:active {
 }
 
 @media (max-width: 400px) {
-    .sidebar {
+    .sidebar, .cartTab {
         width: 100%;
     }
 
