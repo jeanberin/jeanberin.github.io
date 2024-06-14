@@ -336,6 +336,22 @@ a.discover-btn:hover, a.discover-btn:active {
         text-align: center;
     }
 
+    .listCart .item{
+        grid-template-columns: 70px 120px 50px 100px;
+        gap: 10px;
+
+    }
+
+}
+
+@media (max-width: 375px) {
+    .listCart .item{
+        grid-template-columns: 70px 75px 50px 1fr;
+        gap: 10px;
+
+    }
+
+
 }
 
 @media (max-width: 325px) {
@@ -343,6 +359,7 @@ a.discover-btn:hover, a.discover-btn:active {
         font-size: 0.8rem;
     }
 
+    
 }
 
 /* .contact-content{
