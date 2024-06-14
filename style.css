@@ -62,8 +62,13 @@ input:focus {
     font-size: 1.1rem;
 }
 
-.topnav i.fa-magnifying-glass {
-    position: relative;
+.topnav i.fa-cart-shopping {
+    color: black;
+    cursor: pointer;
+}
+
+.topnav i.fa-cart-shopping:hover {
+    color: #D2AB77;
 }
 
 .topnav i.fa-bars {
@@ -110,6 +115,115 @@ input:focus {
 
 svg {
     cursor: pointer;
+}
+
+/* cart */
+.cartTab{
+    width: 400px;
+    background-color: white;
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    color: #eee;
+    position: fixed;
+    top: 0;
+    right: -400px;
+    bottom: 0;
+    display: grid;
+    grid-template-rows: 70px 1fr 70px;
+    transition: .5s;
+    z-index: 999;
+}
+
+body.showCart .cartTab{
+    right: 0;
+}
+
+.cartTab .topCart {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cartTab h1{
+    padding: 20px;
+    margin: 0;
+    font-weight: 300;
+    color: black;
+    font-size: 2em;
+}
+
+.cartTab button{
+    background-color: #63310E;
+    border: none;
+    font-weight: 500;
+}
+
+.cartTab .checkOut {
+    width: 100%;
+    padding: 20px;
+}
+
+.cartTab .checkOut{
+    font-size: 2em;
+}
+
+.cartTab .close{
+    background-color: white;
+    margin-top: 12px;
+}
+
+.listCart .item img{
+    width: 100%;
+}
+
+.listCart .image{
+    margin-left: 20px;
+}
+
+.listCart .item{
+    display: grid;
+    grid-template-columns: 70px 150px 50px 1fr;
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.listCart .item:first-child{
+    margin-top: 20px;
+}
+
+.listCart .name, .listCart .totalPrice {
+    color: black;
+}
+
+.listCart .quantity span{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: #D2AB77;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    /* margin: auto; */
+    /* justify-content: center;
+    text-align: center; */
+    padding-top: 4.5px;
+}
+
+.listCart .quantity span:nth-child(2){
+    background-color: transparent;
+    color: black;
+    cursor: auto;
+}
+
+/* .listCart .item:nth-child(even){
+    background-color: blue;
+} */
+
+.listCart{
+    overflow: auto;
+}
+.listCart::-webkit-scrollbar{
+    width: 0;
 }
 
 .head-img {
@@ -217,6 +331,11 @@ a.discover-btn:hover, a.discover-btn:active {
         font-size: 2em;
     }
 
+    .head-img h1, .head-img a{
+        justify-content: center;
+        text-align: center;
+    }
+
 }
 
 @media (max-width: 325px) {
@@ -256,17 +375,27 @@ h3 {
 
 .about-img img, .about-info {
     width: 695px;
-    min-height: 481px;
+    height: 481px;
 }
 
 @media screen and (max-width: 695px) {
     .about-info, .about-img, .about-img img {
         width: 100%;
-        min-height: 300px;
+        min-height: 320px;
+    }
+
+    .about-info p{
+        font-size: 1.3em;
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 610px) {
+    .about-info p{
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 524px) {
     :root {
         font-size: 0.8rem;
     }
@@ -283,6 +412,7 @@ h3 {
     ul {
         top: 60px;
     }
+
     
 }
 
@@ -307,36 +437,53 @@ a.about-btn, a.read-btn {
     margin: 2rem auto 0;
 }
 
-.menu, .customer-list {
+.menu, .customer-list, .blog-list {
     text-align: center;
     align-items: center;
+    display: grid;
+    justify-content: center;
     
 }
 
 .card {
-    width: 450px;
+    width: 400px;
     height: 350px;
     border: 1px solid #323534;
 }
 
-@media screen and (max-width: 500px) {
+
+@media screen and (max-width: 847px) {
     .card {
         width: 350px;
         min-height: 100px;
     }
 }
 
-.hot-coffee-row1, .hot-coffee-row2, .cold-coffee-row1, .cold-coffee-row2, .customers, .blogs {
+.listProduct, .customers, .blogs {
+    display: grid;
+    grid-template-columns: repeat(3, 400px);
+    gap: 20px;
+    align-items: center;
     justify-content: center;
-    display: flex;
-    flex-flow: row wrap;
-    gap: 1.3rem;
-    margin: 1.5rem auto;
+    margin: 0 auto;
+    
 }
 
-.hot-coffee-row2 {
-    margin-bottom: 3rem;
+.listProduct, .blogs {
+    margin-bottom: 50px;
 }
+
+@media screen and (max-width: 1300px) {
+    .listProduct, .customers, .blogs {
+        grid-template-columns: repeat(2, 400px);
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+
+
 
 .menu p, .customer-list p {
     padding-top: 1rem;
@@ -352,14 +499,6 @@ a.about-btn, a.read-btn {
 
 h3.discounted {
     text-align: center;
-    padding-left: 8rem;
-}
-
-.orig-price {
-    text-decoration: line-through;
-    padding-left: 2.4rem;
-    color: #858787;
-    font-size: 1.4rem;
 }
 
 a.cart-btn {
@@ -397,9 +536,24 @@ a.cart-btn {
     color: #D2AB77;
 }
 
+@media screen and (max-width: 847px) {
+    .listProduct, .customers, .blogs {
+        grid-template-columns: repeat(1, 300px);
+    }
+}
+
 @media screen and (max-width: 500px) {
     .customer {
         height: 370px;
+    }
+
+    .card {
+        width: 300px;
+    }
+
+    .card .product-info p, .card .product-info h3{
+        font-size: 1.8em;
+
     }
 }
 
@@ -425,16 +579,13 @@ a.cart-btn {
     margin-top: 3rem;
 }
 
-.contact-form div:nth-child(3) {
-    margin-bottom: 2rem;
-}
-
 .contact-form div:last-child {
+    margin-top: 50px;
     text-align: center;
 }
 
 .contact-form, .map {
-    height: 510px;
+    height: 650px;
     width: 695px;
 }
 
@@ -447,7 +598,8 @@ a.cart-btn {
     font-size: 2.5rem;
 }
 
-input[type="text"], input[type="tel"] {
+input[type="text"], input[type="tel"], textarea {
+    font-family: 'Roboto', sans-serif;
     padding: 1rem;
     width: 630px;
     height: 65px;
@@ -455,6 +607,13 @@ input[type="text"], input[type="tel"] {
     border: 1px solid #323534;
     font-size: 1rem;
     color: white;
+}
+
+textarea {
+    resize: none;
+    width: 630px;
+    height: 100px;
+    
 }
 
 ::placeholder {
@@ -476,7 +635,7 @@ button {
 }
 
 @media screen and (max-width: 694px) {
-    input[type="text"], input[type="tel"] {
+    input[type="text"], input[type="tel"], textarea {
         width: 440px;
     }
 }
@@ -495,7 +654,7 @@ button {
 
     .contact-form {
         width: 100%;
-        height: 350px; 
+        height: 450px; 
     }
 
     .map iframe {
@@ -511,9 +670,16 @@ button {
         height: 40px;
     }
 
-    .contact-form div:nth-child(3) {
-        margin-bottom: -1rem;
+    textarea {
+        width: 320px;
+        height: 100px;
     }
+
+    .contact-form div:last-child{
+        margin: 0;
+    }
+
+    
 
     .blog {
         height: 500px;
@@ -522,6 +688,27 @@ button {
     button {
         margin-top: 2rem;
     }
+}
+
+@media screen and (max-width: 370px) {
+    h2 {
+        font-size: 3rem;
+    }
+
+    input[type="text"], input[type="tel"] {
+        width: 250px;
+        height: 40px;
+    }
+
+    textarea {
+        width: 250px;
+        height: 100px;
+    }
+
+    .card {
+        width: 275px;
+    }
+
 }
 
 .blog-img img {
@@ -608,6 +795,13 @@ h3.author {
 
     .botnav {
         height: 130px;
+    }
+
+}
+
+@media screen and (max-width: 372px) {
+    .credits h3 {
+        font-size: 1.3em;
     }
 
 }
