@@ -354,7 +354,7 @@ a.discover-btn:hover, a.discover-btn:active {
 
 }
 
-@media (max-width: 325px) {
+@media (max-width: 326px) {
     .discover-btn {
         font-size: 0.8rem;
     }
@@ -362,16 +362,9 @@ a.discover-btn:hover, a.discover-btn:active {
     
 }
 
-/* .contact-content{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    margin-top: 1.5rem;
-}  */
-
 .about-content, .contact-content{
     display: flex;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    flex-wrap: wrap; 
     justify-content: center;
 
 
@@ -379,7 +372,7 @@ a.discover-btn:hover, a.discover-btn:active {
 
 .about-img, .about-info {
     flex: 1; /* Ensures both elements grow/shrink equally */
-    min-width: 300px; /* Prevents them from getting too small */
+    min-width: 300px; 
 }
 
 h2 {
@@ -403,11 +396,6 @@ h3 {
     padding: 2.5rem 2rem;
 }
 
-/* .about-img img, .about-info {
-    width: 695px;
-    height: 481px;
-} */
-
 .about-img img {
     width: 100%;
     height: 100%;
@@ -429,11 +417,6 @@ h3 {
 }
 
 @media screen and (max-width: 695px) {
-    /* .about-info, .about-img, .about-img img {
-        width: 100%;
-        min-height: 320px;
-    } */
-
     .about-info p{
         font-size: 1.3em;
     }
@@ -514,7 +497,6 @@ a.about-btn, a.read-btn {
 .listProduct, .customers, .blogs {
     display: grid;
     grid-template-columns: repeat(3, 400px);
-    /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
     gap: 20px;
     align-items: center;
     justify-content: center;
@@ -534,10 +516,6 @@ a.about-btn, a.read-btn {
     }
 }
 
-
-
-
-
 .menu p, .customer-list p {
     padding-top: 1rem;
     margin-bottom: 1rem;
@@ -547,7 +525,6 @@ a.about-btn, a.read-btn {
 
 .menu h3, .customer-list h3 {
     font-size: 2rem;
-    /* margin: 0 auto 1.6rem; */
 }
 
 h3.discounted {
@@ -557,7 +534,6 @@ h3.discounted {
 a.cart-btn {
     color: white;
     background-color: #D2AB77;
-    /* top: 500px; */
     padding: 0.6rem 1.8rem;
     font-size: 1rem;
     margin-top: 10px;
@@ -746,7 +722,7 @@ button {
     
 
     .blog {
-        height: 500px;
+        height: 450px;
     }
 
     button {
@@ -772,6 +748,7 @@ button {
     .card {
         width: 275px;
     }
+
 
 }
 
