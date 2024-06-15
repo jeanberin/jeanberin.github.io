@@ -178,9 +178,28 @@ span:first-child {
     }
 
     .hidden-logo img {
-        width: 110px;
-        height: 110px;
+        width: 90px;
+        height: 90px;
     }
     
+}
+
+@media screen and (max-width: 490px){
+    .sign-form {
+        width: 420px;
+    }
+}
+
+@media screen and (max-width: 430px){
+    .sign-form {
+        width: 310px;
+    }
+
+
+    input[type="text"], input[type="password"], button {
+        width: 270px;
+    }
+
+
 }
 
