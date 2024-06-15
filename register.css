@@ -62,7 +62,7 @@ a {
     justify-content: center;
     align-items: flex-start;
     background-color: rgba(0, 0, 0, 0.7);
-    height: 500px;
+    height: 600px;
     width: 470px;
     padding: 3rem;
 }
@@ -151,6 +151,10 @@ a.sign-up {
 
 span:first-child {
     margin-right: 0.3rem;
+}
+
+.btn {
+    margin-top: 1.7rem;
 }
 
 @media screen and (max-width: 535px){
