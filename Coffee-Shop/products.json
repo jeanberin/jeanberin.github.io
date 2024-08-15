@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "name":"Caffe Misto",
+        "price": 175,
+        "image": "img/hot coffee drinks/1.jpg"
+    },
+    {
+        "id": 2,
+        "name":"Espresso Con Panna",
+        "price": 250,
+        "image": "img/hot coffee drinks/2.jpg"
+    },
+    {
+        "id": 3,
+        "name":"Espresso Macchiato",
+        "price": 280,
+        "image": "img/hot coffee drinks/3.jpg"
+    },
+    {
+        "id": 4,
+        "name":"Flat White",
+        "price": 175,
+        "image": "img/hot coffee drinks/4.jpg"
+    },
+    {
+        "id": 5,
+        "name":"Full Leaf Brewed Tea",
+        "price": 85,
+        "image": "img/hot coffee drinks/5.jpg"
+    },
+    {
+        "id": 6,
+        "name":"Hot Brewed Coffee",
+        "price": 85,
+        "image": "img/hot coffee drinks/6.jpg"
+    },
+    {
+        "id": 7,
+        "name":"Caramel Frappuccino",
+        "price": 175,
+        "image": "img/cold coffee drinks/7.jpg"
+    },
+    {
+        "id": 8,
+        "name":"Iced Cappuccino",
+        "price": 190,
+        "image": "img/cold coffee drinks/8.jpg"
+    },
+    {
+        "id": 9,
+        "name":"Iced Classic Chocolate",
+        "price": 175,
+        "image": "img/cold coffee drinks/9.jpg"
+    },
+    {
+        "id": 10,
+        "name":"Iced Latte",
+        "price": 150,
+        "image": "img/cold coffee drinks/10.jpeg"
+    },
+    {
+        "id": 11,
+        "name":"Salted Caramel Cold Brew",
+        "price": 120,
+        "image": "img/cold coffee drinks/11.jpg"
+    },
+    {
+        "id": 12,
+        "name":"Strawberry Frappuccino",
+        "price": 175,
+        "image": "img/cold coffee drinks/12.jpg"
+    }
+]

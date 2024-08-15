@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    justify-content: flex-start;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.head-img {
+    background-image: url("img/sign-wallpaper.png");
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.topnav {
+    display: flex;
+    width: 80%;
+}
+
+.topnav img {
+    width: 110px;
+    height: 110px;
+    margin-left: 20px;
+    margin-top: 20px;
+   
+}
+
+.hidden-logo {
+    display: none;
+}
+
+.sign-form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 600px;
+    width: 470px;
+    padding: 3rem;
+}
+
+.sign-form .title {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+.sign-form p {
+    padding-top: 1rem;
+}
+
+.sign-form h3 {
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 1rem;
+    width: 340px;
+    height: 50px;
+    background-color: #333333;
+    border: 1px solid #333333;
+    font-size: 0.95rem;
+    color: white;
+    border-radius: 0.3rem;
+}
+
+p.remember-btn {
+    text-align: left;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1.7rem;
+}
+
+a.forgot {
+    color: white;
+    text-decoration: underline;
+}
+
+button {
+    color: white;
+    background-color: #D2AB77;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    width: 340px;
+    height: 50px;
+    letter-spacing: 0.03rem;
+}
+
+::placeholder {
+    color: #969D9B;
+    letter-spacing: 0rem;
+}
+
+.remember {
+    accent-color: #333333;
+}
+
+label, a.forgot {
+    color: #969D9B;
+}
+
+.btn {
+    margin-bottom: 1rem;
+}
+
+.newHere {
+    display: flex;
+    justify-content: flex-start;
+    color: #969D9B;
+}
+
+a.sign-up {
+    color: white;
+}
+
+span:first-child {
+    margin-right: 0.3rem;
+}
+
+.btn {
+    margin-top: 1.7rem;
+}
+
+@media screen and (max-width: 535px){
+    .head-img {
+        background-image: none;
+    }
+
+    .topnav {
+        display: none;
+       
+    }
+
+    .hidden-logo {
+        display: block;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .hidden-logo img {
+        width: 90px;
+        height: 90px;
+    }
+    
+}
+
+@media screen and (max-width: 490px){
+    .sign-form {
+        width: 420px;
+    }
+}
+
+@media screen and (max-width: 430px){
+    .sign-form {
+        width: 310px;
+    }
+
+
+    input[type="text"], input[type="password"], button {
+        width: 270px;
+    }
+
+
+}
+
