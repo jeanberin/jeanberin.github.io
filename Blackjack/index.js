@@ -31,7 +31,7 @@ function startGame() {
     dealer.innerHTML = `Dealer Card Value: `;
 
     if (sum === 21) {
-        question.innerHTML = 'Congrats! You got blackjack!';
+        question.innerHTML = 'Congrats! You got blackjack! &#127881;';
         dealer.innerHTML = `Dealer Card Value: ${dealerCard}`;
     } else if (sum > 21) {
         question.innerHTML = `You've lost &#128531;`;
@@ -53,7 +53,7 @@ function drawCard() {
 
 function showCard() {
     if (sum === 21) {
-        question.innerHTML = 'Congrats! You got blackjack!';
+        question.innerHTML = 'Congrats! You got blackjack! &#127881;';
     } else if ((dealerCard > 21 && sum  < 21) || (sum > dealerCard && sum < 21)) {
         question.innerHTML = 'Congrats! You beat the dealer!';
     } else {
