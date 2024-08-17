@@ -18,14 +18,41 @@
         <h3 id="cards"></h3>
         <h3 id="sum"></h3>
         <h3 id="dealer"></h3>
+        <div id="mechanics-content">
+            <h2>Blackjack Game Mechanics</h2>
+            Welcome to Blackjack, where every card could bring you victory or defeat!
+
+            <h3 class="mechanics-heading">Card Values:</h3>
+            <ul class="mechanics-list">
+                <li><strong>Face Cards (Kings, Queens, Jacks):</strong> 10 points each.</li>
+                <li><strong>Number Cards (2-10):</strong> Worth their face value.</li>
+                <li><strong>Aces:</strong> Either 1 or 11 points—your choice.</li>
+            </ul>
+            <h3 class="mechanics-heading">Objective:</h3>
+            Get as close to 21 as possible without going over. A perfect 21 with your first two cards is a "Blackjack" and an automatic win!
+
+            <h3 class="mechanics-heading">How to Win:</h3>
+            <ul class="mechanics-list">
+                <li><strong>Blackjack:</strong> Hit exactly 21 with your first two cards.</li>
+                <li><strong>Beat the Dealer:</strong> End with a higher total than the dealer without exceeding 21.</li>
+                <li><strong>Dealer Bust:</strong> If the dealer goes over 21, you win automatically.</li>
+            </ul>
+            <h3 class="mechanics-heading">Your Choices:</h3>
+            <ul class="mechanics-list">
+                <li><strong>Hit:</strong> Draw one more card, but risk busting if you go over 21.</li>
+                <li><strong>Stand:</strong> Keep your current total and see if it’s enough to win.</li>
+            </ul>
+            <br>
+            <em>Take your shot at beating the dealer—will you play it safe or take the risk? Let the games begin!</em>
+        </div>
     </div>
 
-    <div class="Btn">
+    <div class="gameBtn">
         <button onclick="startGame()" id="start">START GAME</button>
+        <button onclick="showMechanics()" id="mechanics">MECHANICS</button>
         <button onclick="drawCard()" id="newCard">DRAW CARD</button>
         <button onclick="showCard()" id="stand">STAND</button>
     </div>
-    
 
     <script src="index.js"></script>
 </body>

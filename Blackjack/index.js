@@ -1,8 +1,10 @@
+const mechanics = document.getElementById('mechanics-content');
 const question = document.getElementById('question');
 const cards = document.getElementById('cards');
 const sumText = document.getElementById('sum');
 const dealer = document.getElementById('dealer');
 const startGameBtn = document.getElementById('start');
+const mechanicsBtn = document.getElementById('mechanics');
 const drawCardBtn = document.getElementById('newCard');
 const standBtn = document.getElementById('stand');
 let drawnCards;
@@ -15,7 +17,17 @@ let stringDrawnCards;
 let dealerCard;
 let sum = 0;
 
+function showMechanics() {
+    mechanics.style.display = 'block';
+    mechanicsBtn.style.display = 'none';
+    drawCardBtn.style.visibility = "hidden";
+    standBtn.style.visibility = "hidden";
+    question.innerHTML = '';
+}
+
 function startGame() {
+    mechanicsBtn.style.display = 'none';
+    mechanics.style.display = 'none';
     sum = 0;
     drawnCards = [];
     startGameBtn.innerHTML = 'NEW GAME';
@@ -54,7 +66,7 @@ function drawCard() {
 function showCard() {
     if (sum === 21) {
         question.innerHTML = 'Congrats! You got blackjack! &#127881;';
-    } else if ((dealerCard > 21 && sum  < 21) || (sum > dealerCard && sum < 21)) {
+    } else if (dealerCard > 21  || (sum > dealerCard && sum < 21)) {
         question.innerHTML = 'Congrats! You beat the dealer!';
     } else {
         question.innerHTML = `You've lost &#128531;`;
