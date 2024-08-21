@@ -1,0 +1,180 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jean Francois Thomas Berin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap" rel="stylesheet"/>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Header/Navigation Bar -->
+    <header class="header">
+        <img src="images/logo.png" alt="">
+        <a href="#" class="logoname">Jean Francois Thomas Berin</a>
+        <nav class="navbar">
+            <div class="menu">
+            <span class="close-icon" onclick="toggleMenu()">&#10006;</span>
+                <a href="#about" onclick="scrollToSection('about')">About</a>
+                <a href="#skills" onclick="scrollToSection('skills')">Skills</a>
+                <a href="#projects" onclick="scrollToSection('projects')">Projects</a>
+        </div>
+            <div class="menu-icon" onclick="toggleMenu()" >&#9776;</div>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="home-content" id="home" data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
+            <h4>Hello, I am</h4>
+            <h1>Jean Berin</h1>
+            <h3><span class="text"></span></h3>
+            <div class="home-button">
+                <a class="home-button-resume" href="BERIN__JFT.pdf" target="_blank">Download resume</a>
+            </div>
+            <div class="home-button">
+                <a class="home-button-email" href="mailto:berinjeanfrancoisthomas@gmail.com" target="_blank">Email</a>
+            </div>
+        </div>
+        <div class="home-image">
+            <img src="images/profile.JPG" alt="Connect Image" data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
+        </div>
+    </section>
+    
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h3 data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">ABOUT ME</h3>
+            <p data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000">Hi, I'm <b>Jean Francois Thomas Berin</b>, an Electronics Engineer with a passion for <b>web development</b>. I create dynamic, user-friendly websites using <b>HTML, CSS, and JavaScript</b>. With experience in web development, I'm ready to bring your ideas to life. Let's build something great!
+            <!-- <p id="paragraph2" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000">I am eager to apply my academic knowledge to hands-on projects and learn from experienced professionals. I am open to entry-level opportunities in <b>Web development</b>, <b>UI/UX Designing</b>, <b>Frontend Development</b>, and <b>Associate Software Engineering</b> roles that offer a platform for growth and innovation.</p> -->
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="skills-content">
+            <h3 data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">SKILLS AND KNOWLEDGE</h3>
+            <div class="skills-classification" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000">
+            </div>
+            <div id="content" class="skills-content-image" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
+                <!-- Default content -->
+                <div class="skill-box">
+                    <img src="images/html-5.svg" alt="HTML Logo">
+                    <p>HTML</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/css-3.svg" alt="CSS Logo">
+                    <p>CSS</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/javascript.svg" alt="JavaScript Logo">
+                    <p>JavaScript</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/tailwindcss-icon.svg" alt="Tailwind CSS Logo">
+                    <p>Tailwind CSS</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/python.svg" alt="Python Logo">
+                    <p>Python</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/github-icon.svg" alt="GitHub Logo">
+                    <p>GitHub</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/api.svg" alt="GitHub Logo">
+                    <p>API</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/figma.svg" alt="Figma Logo">
+                    <p>Figma</p>
+                </div>
+                <div class="skill-box">
+                    <img src="images/adobe-photoshop.svg" alt="Photoshop Logo">
+                    <p>Photoshop</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="projects-content">
+            <h3 data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">PROJECTS</h3>
+            <div class="project-content-image">
+                <div class="project-box" data-aos="zoom-in" data-aos-delay="100" data-aos-duration="1000">
+                    <img src="images/project-1.png" alt="movie website">
+                    <p class="title">Movie Website</p>
+                    <div class="language">
+                        <p>HTML</p>
+                        <p>CSS</p>
+                        <p>JavaScript</p>
+                        <p>API</p>
+                    </div>
+                    <div class="project-button">
+                            <a href="https://pilord1.github.io/Movie-Site/" target="_blank" class="view">Live View</a>
+                            <a href="https://github.com/PiLord1/Movie-Website.git" target="_blank" class="view">Source Code</a>
+                    </div>
+                </div>
+                <div class="project-box" data-aos="zoom-in" data-aos-delay="100" data-aos-duration="1000">
+                    <img src="images/project-2.png" alt="dental clinic website">
+                    <p class="title">Dental Clinic Website</p>
+                    <div class="language">
+                        <p>HTML</p>
+                        <p>CSS</p>
+                        <p>JavaScript</p>
+                        <p>SEO</p>
+                    </div>
+                    <div class="project-button">
+                            <a href="https://mberin.github.io/" target="_blank" class="view">Live View</a>
+                            <a href="https://github.com/mberin/mberin.github.io.git" target="_blank" class="view">Source Code</a>
+                    </div>
+                </div>
+                <div class="project-box" data-aos="zoom-in" data-aos-delay="100" data-aos-duration="1000">
+                    <img src="images/project-3.png" alt="coffee shop website">
+                    <p class="title">Coffee Shop Website</p>
+                    <div class="language">
+                        <p>HTML</p>
+                        <p>CSS</p>
+                        <p>JavaScript</p>
+                    </div>
+                    <div class="project-button">
+                            <a href="https://pilord1.github.io/Coffee-Shop/" target="_blank" class="view">Live View</a>
+                            <a href="https://github.com/PiLord1/Coffee-Shop-Website.git" target="_blank" class="view">Source Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="foot">
+        <div class="foot-content">
+            <h4>jean.berin</h4>
+            <div class="socials">
+                <a target="_blank" href="mailto:berinjeanfrancoisthomas@gmail.com"><i class='bx bxs-envelope'></i></a>
+                <a target="_blank" href="https://www.linkedin.com/in/jean-francois-thomas-berin/"><i class='bx bxl-linkedin-square' ></i></a>
+            </div>
+            <p class="credit">&copy; 2024 Jean Francois Thomas Berin.</p>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+    <script type="text/javascript" src="particles.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    
+    <!-- Smooth Animation-->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
