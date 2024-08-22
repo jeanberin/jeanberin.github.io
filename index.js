@@ -1,10 +1,10 @@
    // JavaScript for typing effects
 var typed = new Typed(".text", {
-    strings:["Web Developer"],
+    strings:["Web Developer", "Frontend Developer", "Software Engineer"],
     typeSpeed:50,
     backSpeed:50,
     backDelay:1000,
-    loop:false
+    loop:true
 })
 
 //Header animation
