@@ -7,7 +7,7 @@ const todayContainer = document.querySelector('.today-card-container');
 const airConditionContainer = document.querySelector('.air-condition-card-container');
 const sevenDayContainer = document.querySelector('.seven-day-card-container');
 
-const API_KEY = '624040f5490c460793f62034241009';
+const API_KEY = '3999a369d36f4caebd844454241309';
 
 
 async function getWeatherForecast(location) {
