@@ -196,11 +196,6 @@ async function getWeatherForecast(location) {
             dayCount++
 
         }
-
-
-
-        
-
     }
     catch(error) {
         console.error(error);
