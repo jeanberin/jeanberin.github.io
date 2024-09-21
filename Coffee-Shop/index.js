@@ -118,6 +118,11 @@ const addCartToHTML = () => {
 
         })
     }
+    else {
+        totalPrice = 0;
+        checkOut.innerText = `Order an item`;
+
+    }
 }
 
 listCartHTML.addEventListener('click', (event) => {
