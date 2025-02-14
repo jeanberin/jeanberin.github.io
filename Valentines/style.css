@@ -1,0 +1,176 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+body {
+
+    font-family: 'Arial', sans-serif;
+
+  /*  background-color: #ffcccb; /* Pink background */
+  
+    background-color: #ff8cac;
+
+    color: #fff;
+
+    text-align: center;
+
+    
+
+}
+
+.ribbon {
+    width: 100px; /* Adjust width as needed */
+    height: auto; /* Maintains aspect ratio */
+    position: absolute; /* Position it freely */
+    top: 20px; /* Adjust position */
+    left: 20px;
+}
+.container {
+  
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+   
+
+ 
+
+  
+    background-color: #ff8cac; /* Light pink */
+
+    
+  
+    height: 100vh;
+    width: 100%;
+    /* padding-bottom: 150px; */
+
+    
+
+}
+
+h1 {
+
+    font-size: 2.5rem;
+
+    margin-bottom: 20px;
+
+    font-weight: bold;
+
+    color: #ffffff;
+    padding: 50px;
+
+}
+
+.cat-image {
+
+    width: 200px;
+
+    /* height: 150px; */
+
+    border-radius: 50%;
+
+    margin: 20px 0;
+
+    transition: transform 0.3s ease;
+
+}
+
+.cat-image:hover {
+
+    transform: scale(1.1);
+
+}
+
+.buttons {
+
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+
+}
+
+.btn {
+
+    background-color: #ffffff;
+
+    color: #ff66b2;
+
+    border: none;
+
+    padding: 10px 30px;
+
+    font-size: 1.2rem;
+    font-weight: bolder;
+
+    /* margin: 10px; */
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+}
+
+.btn:hover {
+
+    background-color: #ff4d94;
+
+    color: white;
+
+}
+
+.result-message {
+
+    margin-top: 20px;
+
+    font-size: 1.6em;
+
+    font-weight: bold;
+
+    color: white;
+    padding: 30px;
+
+}
+
+.date-details {
+    padding: 30px;
+    font-size: 1.4em;
+}
+
+.hidden {
+
+    display: none;
+
+}
+
+.date-details {
+
+    font-size: 1.2rem;
+
+    margin-top: 20px;
+
+    font-weight: bold;
+
+    color: #fff;
+
+}
+
+#noBtn {
+    position: block;
+}
+
+
+
+
