@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-**View personal portfolio here:** https://pilord1.github.io/
+**View personal portfolio here:** https://jeanberin.github.io/
 
 ## Screenshots
 ![image](https://github.com/user-attachments/assets/2217d46c-a180-4362-911e-78e6dc542891)
