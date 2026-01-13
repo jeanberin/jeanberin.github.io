@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Scores</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./_sdk/element_sdk.js"></script>
+  <script src="./_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Rajdhani:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { filter: brightness(1) drop-shadow(0 0 10px currentColor); }
+      50% { filter: brightness(1.2) drop-shadow(0 0 25px currentColor); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    @keyframes score-pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .score-bar {
+      transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .group-card {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    .group-card:nth-child(2) { animation-delay: 0.3s; }
+    .group-card:nth-child(3) { animation-delay: 0.6s; }
+    .group-card:nth-child(4) { animation-delay: 0.9s; }
+    .group-card:nth-child(5) { animation-delay: 1.2s; }
+    .group-card:nth-child(6) { animation-delay: 1.5s; }
+    
+    .shimmer-text {
+      background: linear-gradient(90deg, currentColor 40%, #fff 50%, currentColor 60%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    
+    .score-display {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    .trophy-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #fef9e7 0%, #fffbeb 50%, #fef9e7 100%); position: relative;"><!-- Olympic Decorative Elements -->
+   <div class="absolute inset-0 overflow-hidden pointer-events-none"><!-- Olympic Rings Pattern - Top corners only -->
+    <img src="img/torch.png" class="absolute top-2 -left-5 h-[500px] [rotate:20deg]">
+    <img src="img/torch.png" class="absolute top-2 -right-5 h-[500px] [rotate:340deg]">
+    <img src="img/ribbon.png" class="absolute top-60 -left-20 h-[1000px]">
+    <img src="img/ribbon.png" class="absolute top-60 -right-20 h-[1000px] scale-x-[-1]">
+   </div><!-- Header -->
+   <header class="text-center py-4 relative z-10">
+    <img src="img/olympics-logo.png" class="h-64 mx-auto">
+    <h1 id="main-title" class="text-5xl font-black tracking-wider shimmer-text relative z-10" style="font-family: 'Orbitron', sans-serif; color: #fbbf24;">GAME SCORES</h1>
+    <p id="subtitle" class="text-xl mt-14 tracking-widest relative z-10" style="font-family: 'Rajdhani', sans-serif; color: #78716c;">TEAM STANDINGS</p><!-- Trophy for leader -->
+    <div id="leader-trophy" class="mt-8 mb-8 trophy-icon hidden">
+     <svg class="w-12 h-12 mx-auto" viewbox="0 0 64 64" fill="none"><path d="M32 8L36 20H48L38 28L42 40L32 32L22 40L26 28L16 20H28L32 8Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2" /> <rect x="26" y="40" width="12" height="8" fill="#fbbf24" /> <rect x="22" y="48" width="20" height="4" rx="1" fill="#f59e0b" />
+     </svg>
+     <p id="leader-name" class="text-2xl font-bold mt-1" style="font-family: 'Rajdhani', sans-serif; color: #fbbf24;"></p>
+    </div>
+   </header>
+   
+   <!-- Score Display Area -->
+   <main class="px-4 pb-4">
+    <div id="scores-container" class="max-w-7xl mx-auto flex items-end justify-center gap-4 flex-wrap min-h-[400px]"><!-- Scores will be dynamically inserted here -->
+    </div>
+    
+    <!-- Empty State -->
+    <div id="empty-state" class="text-center hidden">
+     <p class="text-2xl" style="font-family: 'Rajdhani', sans-serif; color: #475569;">No teams added yet</p>
+     <p class="text-lg mt-2" style="font-family: 'Rajdhani', sans-serif; color: #64748b;">Use the admin panel to add teams</p>
+    </div>
+    
+    <!-- Admin Toggle (Hidden by default - use keyboard shortcut) -->
+    <div id="admin-toggle-container" class="fixed bottom-6 right-6 z-50 hidden"><button id="admin-toggle" class="px-6 py-3 rounded-full font-bold shadow-lg transition-all hover:scale-105" style="font-family: 'Rajdhani', sans-serif; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;"> ⚙️ Admin Panel </button>
+    </div>
+    
+    <!-- Secret Access Indicator -->
+    <div id="secret-indicator" class="fixed top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold hidden" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981;">
+     Admin Mode Active
+    </div>
+   </main>
+   
+   <!-- Admin Panel Modal -->
+   <div id="admin-panel" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl max-h-[90%] overflow-auto rounded-2xl p-8" style="background: linear-gradient(135deg, #ffffff, #fffef5); border: 3px solid #d97706;">
+     <div class="flex justify-between items-center mb-6">
+      <h2 class="text-3xl font-bold" style="font-family: 'Orbitron', sans-serif; color: #92400e;">Admin Panel</h2><button onclick="closeAdminPanel()" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-200 transition-colors" style="color: #475569;">×</button>
+     </div><!-- Add New Group -->
+     <div class="mb-8 p-6 rounded-xl" style="background: rgba(217, 119, 6, 0.08); border: 2px solid rgba(217, 119, 6, 0.3);">
+      <h3 class="text-xl font-semibold mb-4" style="font-family: 'Rajdhani', sans-serif; color: #92400e;">Add New Group</h3>
+      <div class="flex gap-4 flex-wrap">
+       <div class="flex-1 min-w-[200px]"><label for="group-name-input" class="block text-sm mb-2" style="color: #475569;">Group Name</label> <input type="text" id="group-name-input" placeholder="Enter group name" class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none transition-colors" style="background: #ffffff; border-color: #d97706; color: #1e293b; font-family: 'Rajdhani', sans-serif;">
+       </div>
+       <div class="w-32"><label for="group-score-input" class="block text-sm mb-2" style="color: #475569;">Initial Score</label> <input type="number" id="group-score-input" value="0" min="0" class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none transition-colors" style="background: #ffffff; border-color: #d97706; color: #1e293b; font-family: 'Rajdhani', sans-serif;">
+       </div>
+       <div class="w-24"><label for="group-color-input" class="block text-sm mb-2" style="color: #475569;">Color</label> <input type="color" id="group-color-input" value="#6366f1" class="w-full h-12 rounded-lg cursor-pointer">
+       </div>
+       <div class="flex items-end"><button id="add-group-btn" class="px-6 py-3 rounded-lg font-bold transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" style="background: linear-gradient(135deg, #10b981, #059669); color: white; font-family: 'Rajdhani', sans-serif;"> + Add Group </button>
+       </div>
+      </div>
+      <p id="limit-warning" class="mt-3 text-sm hidden" style="color: #f87171;">Maximum limit of 999 groups reached.</p>
+     </div><!-- Existing Groups -->
+     <div>
+      <h3 class="text-xl font-semibold mb-4" style="font-family: 'Rajdhani', sans-serif; color: #92400e;">Manage Groups</h3>
+      <div id="admin-groups-list" class="space-y-4"><!-- Admin group items will be inserted here -->
+      </div>
+      <p id="admin-empty" class="text-center py-8 hidden" style="color: #64748b; font-family: 'Rajdhani', sans-serif;">No groups to manage</p>
+     </div>
+    </div>
+   </div>
+   <img src="img/xl-logo.png" class="h-24 absolute bottom-10 left-1/2 -translate-x-1/2">
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      main_title: 'GAME SCORES',
+      subtitle: 'TEAM STANDINGS',
+      background_color: '#fef9e7',
+      surface_color: '#fffbeb',
+      text_color: '#78716c',
+      primary_action_color: '#d97706',
+      secondary_action_color: '#f59e0b'
+    };
+
+    let config = { ...defaultConfig };
+    let groups = [];
+    let isLoading = false;
+
+    // Data Handler for Data SDK
+    const dataHandler = {
+      onDataChanged(data) {
+        groups = data;
+        renderScores();
+        renderAdminList();
+        updateLimitWarning();
+      }
+    };
+
+    // Element SDK initialization
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (newConfig) => {
+        config = { ...defaultConfig, ...newConfig };
+        applyConfig();
+      },
+      mapToCapabilities: (cfg) => ({
+        recolorables: [
+          {
+            get: () => cfg.background_color || defaultConfig.background_color,
+            set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+          },
+          {
+            get: () => cfg.surface_color || defaultConfig.surface_color,
+            set: (v) => { cfg.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); }
+          },
+          {
+            get: () => cfg.text_color || defaultConfig.text_color,
+            set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+          },
+          {
+            get: () => cfg.primary_action_color || defaultConfig.primary_action_color,
+            set: (v) => { cfg.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); }
+          },
+          {
+            get: () => cfg.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (v) => { cfg.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => cfg.font_family || 'Orbitron',
+          set: (v) => { cfg.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => cfg.font_size || 16,
+          set: (v) => { cfg.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+        }
+      }),
+      mapToEditPanelValues: (cfg) => new Map([
+        ['main_title', cfg.main_title || defaultConfig.main_title],
+        ['subtitle', cfg.subtitle || defaultConfig.subtitle]
+      ])
+    });
+
+    // Initialize Data SDK
+    async function initApp() {
+      const result = await window.dataSdk.init(dataHandler);
+      if (!result.isOk) {
+        console.error('Failed to initialize Data SDK');
+      }
+    }
+
+    function applyConfig() {
+      const app = document.getElementById('app');
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      app.style.background = `linear-gradient(135deg, ${bgColor} 0%, ${surfaceColor} 50%, ${bgColor} 100%)`;
+      app.style.position = 'relative';
+
+      const mainTitle = document.getElementById('main-title');
+      const subtitle = document.getElementById('subtitle');
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      
+      mainTitle.textContent = config.main_title || defaultConfig.main_title;
+      mainTitle.style.color = primaryColor;
+      
+      subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+      subtitle.style.color = textColor;
+
+      const baseSize = config.font_size || 16;
+      mainTitle.style.fontSize = `${baseSize * 3.125}px`;
+      subtitle.style.fontSize = `${baseSize * 1.25}px`;
+
+      const fontFamily = config.font_family || 'Orbitron';
+      mainTitle.style.fontFamily = `${fontFamily}, Orbitron, sans-serif`;
+
+      const adminToggle = document.getElementById('admin-toggle');
+      if (adminToggle) {
+        adminToggle.style.background = `linear-gradient(135deg, ${primaryColor}, ${config.secondary_action_color || defaultConfig.secondary_action_color})`;
+      }
+
+      renderScores();
+    }
+
+    function renderScores() {
+      const container = document.getElementById('scores-container');
+      const emptyState = document.getElementById('empty-state');
+      const leaderTrophy = document.getElementById('leader-trophy');
+      const leaderName = document.getElementById('leader-name');
+
+      if (groups.length === 0) {
+        emptyState.classList.remove('hidden');
+        leaderTrophy.classList.add('hidden');
+        container.innerHTML = '';
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      
+      // Sort groups by score descending
+      const sortedGroups = [...groups].sort((a, b) => (b.score || 0) - (a.score || 0));
+      const maxScore = Math.max(...groups.map(g => g.score || 0), 1);
+      const leader = sortedGroups[0];
+
+      // Update leader trophy
+      if (leader && leader.score > 0) {
+        leaderTrophy.classList.remove('hidden');
+        leaderName.textContent = `🏆 ${leader.group_name} leads with ${leader.score} points!`;
+      } else {
+        leaderTrophy.classList.add('hidden');
+      }
+
+      // Update or create score cards
+      const existingCards = new Map();
+      container.querySelectorAll('.group-card').forEach(card => {
+        existingCards.set(card.dataset.id, card);
+      });
+
+      // Clear and rebuild to maintain sort order
+      container.innerHTML = '';
+      
+      sortedGroups.forEach((group, index) => {
+        const percentage = maxScore > 0 ? ((group.score || 0) / maxScore) * 100 : 0;
+        const heightPercentage = Math.max(percentage * 0.8, 20); // Min 20% height for visibility
+        const rank = index + 1;
+        
+        // Medal colors for top 3
+        let medalGradient = '';
+        if (rank === 1) medalGradient = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
+        else if (rank === 2) medalGradient = 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)';
+        else if (rank === 3) medalGradient = 'linear-gradient(135deg, #d97706 0%, #b45309 100%)';
+        
+        const barBackground = rank <= 3 ? medalGradient : `linear-gradient(180deg, ${group.color || '#6366f1'}, ${group.color || '#6366f1'}dd)`;
+        
+        // Create card
+        const card = document.createElement('div');
+        card.className = 'group-card flex flex-col items-center transition-all';
+        card.dataset.id = group.__backendId;
+        card.style.width = '140px';
+        card.style.animationDelay = `${index * 0.2}s`;
+        
+        card.innerHTML = `
+          <div class="relative w-full flex flex-col items-center justify-end" style="height: 350px;">
+            <div class="text-4xl mb-2 rank-badge">${rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : `#${rank}`}</div>
+            <div class="score-display text-3xl font-black score-text mb-2" style="font-family: 'Orbitron', sans-serif; color: ${rank === 1 ? '#fbbf24' : rank === 2 ? '#6b7280' : rank === 3 ? '#d97706' : '#475569'};">
+              ${group.score || 0}
+            </div>
+            <div class="score-bar w-full rounded-t-xl transition-all relative overflow-hidden flex items-center justify-center" style="height: ${heightPercentage}%; background: ${barBackground}; box-shadow: 0 -4px 20px rgba(0,0,0,0.3);">
+              <div class="absolute inset-0 opacity-20" style="background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);"></div>
+              <h3 class="name-text text-center text-xl font-bold px-2 relative z-10" style="font-family: 'Rajdhani', sans-serif; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.6); word-break: break-word;">
+                ${group.group_name}
+              </h3>
+            </div>
+          </div>
+          <div class="w-full h-2 rounded-b-lg" style="background: rgba(0,0,0,0.5);"></div>
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+
+    function renderAdminList() {
+      const list = document.getElementById('admin-groups-list');
+      const emptyAdmin = document.getElementById('admin-empty');
+
+      if (groups.length === 0) {
+        emptyAdmin.classList.remove('hidden');
+        list.innerHTML = '';
+        return;
+      }
+
+      emptyAdmin.classList.add('hidden');
+
+      const existingItems = new Map();
+      list.querySelectorAll('.admin-item').forEach(item => {
+        existingItems.set(item.dataset.id, item);
+      });
+
+      groups.forEach(group => {
+        let item = existingItems.get(group.__backendId);
+
+        if (item) {
+          const nameSpan = item.querySelector('.admin-name');
+          const scoreInput = item.querySelector('.admin-score');
+          nameSpan.textContent = group.group_name;
+          nameSpan.style.color = group.color || '#6366f1';
+          if (document.activeElement !== scoreInput) {
+            scoreInput.value = group.score || 0;
+          }
+          existingItems.delete(group.__backendId);
+        } else {
+          item = document.createElement('div');
+          item.className = 'admin-item flex items-center gap-4 p-4 rounded-xl';
+          item.dataset.id = group.__backendId;
+          item.style.background = 'rgba(217, 119, 6, 0.05)';
+          item.style.border = '1px solid rgba(217, 119, 6, 0.2)';
+          
+          item.innerHTML = `
+            <div class="w-4 h-4 rounded-full" style="background: ${group.color || '#6366f1'};"></div>
+            <span class="admin-name flex-1 font-semibold text-lg" style="font-family: 'Rajdhani', sans-serif; color: ${group.color || '#6366f1'};">${group.group_name}</span>
+            <div class="flex items-center gap-2">
+              <button class="score-btn w-10 h-10 rounded-lg font-bold text-xl transition-all hover:scale-110" style="background: #ef4444; color: white;" data-action="decrease">−</button>
+              <input type="number" class="admin-score w-20 px-3 py-2 rounded-lg text-center font-bold" value="${group.score || 0}" min="0" style="background: #ffffff; color: #1e293b; border: 2px solid #d97706; font-family: 'Rajdhani', sans-serif;">
+              <button class="score-btn w-10 h-10 rounded-lg font-bold text-xl transition-all hover:scale-110" style="background: #10b981; color: white;" data-action="increase">+</button>
+            </div>
+            <button class="delete-btn px-4 py-2 rounded-lg font-semibold transition-all hover:scale-105" style="background: #dc2626; color: white; font-family: 'Rajdhani', sans-serif;">Delete</button>
+          `;
+
+          // Event listeners
+          const decreaseBtn = item.querySelector('[data-action="decrease"]');
+          const increaseBtn = item.querySelector('[data-action="increase"]');
+          const scoreInput = item.querySelector('.admin-score');
+          const deleteBtn = item.querySelector('.delete-btn');
+
+          decreaseBtn.addEventListener('click', () => updateScore(group, Math.max(0, (group.score || 0) - 1)));
+          increaseBtn.addEventListener('click', () => updateScore(group, (group.score || 0) + 1));
+          scoreInput.addEventListener('change', (e) => updateScore(group, Math.max(0, parseInt(e.target.value) || 0)));
+          deleteBtn.addEventListener('click', () => confirmDelete(group, deleteBtn));
+
+          list.appendChild(item);
+        }
+      });
+
+      existingItems.forEach(item => item.remove());
+    }
+
+    async function addGroup() {
+      if (isLoading || groups.length >= 999) return;
+
+      const nameInput = document.getElementById('group-name-input');
+      const scoreInput = document.getElementById('group-score-input');
+      const colorInput = document.getElementById('group-color-input');
+      const addBtn = document.getElementById('add-group-btn');
+
+      const name = nameInput.value.trim();
+      if (!name) return;
+
+      isLoading = true;
+      addBtn.disabled = true;
+      addBtn.textContent = 'Adding...';
+
+      const result = await window.dataSdk.create({
+        group_name: name,
+        score: Math.max(0, parseInt(scoreInput.value) || 0),
+        color: colorInput.value
+      });
+
+      if (result.isOk) {
+        nameInput.value = '';
+        scoreInput.value = '0';
+        colorInput.value = '#6366f1';
+      }
+
+      isLoading = false;
+      addBtn.disabled = false;
+      addBtn.textContent = '+ Add Group';
+    }
+
+    async function updateScore(group, newScore) {
+      if (isLoading) return;
+      isLoading = true;
+
+      const result = await window.dataSdk.update({
+        ...group,
+        score: newScore
+      });
+
+      isLoading = false;
+    }
+
+    function confirmDelete(group, btn) {
+      const originalText = btn.textContent;
+      btn.textContent = 'Confirm?';
+      btn.style.background = '#991b1b';
+
+      const timeout = setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '#dc2626';
+      }, 3000);
+
+      btn.onclick = async () => {
+        clearTimeout(timeout);
+        btn.disabled = true;
+        btn.textContent = 'Deleting...';
+        
+        const result = await window.dataSdk.delete(group);
+        
+        if (!result.isOk) {
+          btn.textContent = originalText;
+          btn.style.background = '#dc2626';
+          btn.disabled = false;
+        }
+      };
+    }
+
+    function updateLimitWarning() {
+      const warning = document.getElementById('limit-warning');
+      const addBtn = document.getElementById('add-group-btn');
+      
+      if (groups.length >= 999) {
+        warning.classList.remove('hidden');
+        addBtn.disabled = true;
+      } else {
+        warning.classList.add('hidden');
+        addBtn.disabled = false;
+      }
+    }
+
+    function openAdminPanel() {
+      document.getElementById('admin-panel').classList.remove('hidden');
+    }
+
+    function closeAdminPanel() {
+      document.getElementById('admin-panel').classList.add('hidden');
+    }
+
+    // Event listeners
+    document.getElementById('admin-toggle').addEventListener('click', openAdminPanel);
+    document.getElementById('add-group-btn').addEventListener('click', addGroup);
+    document.getElementById('group-name-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addGroup();
+    });
+
+    // Secret keyboard shortcut: Press Ctrl+Shift+A to toggle admin access
+    let adminModeEnabled = false;
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        adminModeEnabled = !adminModeEnabled;
+        const toggleContainer = document.getElementById('admin-toggle-container');
+        const indicator = document.getElementById('secret-indicator');
+        
+        if (adminModeEnabled) {
+          toggleContainer.classList.remove('hidden');
+          indicator.classList.remove('hidden');
+        } else {
+          toggleContainer.classList.add('hidden');
+          indicator.classList.add('hidden');
+          closeAdminPanel();
+        }
+      }
+      
+      // Press Escape to close admin panel
+      if (e.key === 'Escape' && !document.getElementById('admin-panel').classList.contains('hidden')) {
+        closeAdminPanel();
+      }
+    });
+
+    // Initialize
+    initApp();
+  </script>
+
+</body>
+</html>
