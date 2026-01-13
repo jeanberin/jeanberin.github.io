@@ -5,8 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Scores</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./_sdk/element_sdk.js"></script>
-  <script src="./_sdk/data_sdk.js"></script>
+  <script>
+    window.elementSdk = {
+      init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues,
+      }) {
+        console.log("Element SDK initialized with config:", defaultConfig);
+        return Promise.resolve({ isOk: true });
+      },
+      setConfig(newConfig) {
+        console.log("Config updated:", newConfig);
+      },
+    };
+  </script>
+  <script>
+    window.dataSdk = (function () {
+      let groups = [];
+      let handlerRef = null;
+
+      return {
+        init(handler) {
+          console.log("Data SDK initialized");
+          handlerRef = handler;
+          handler.onDataChanged(groups);
+          return Promise.resolve({ isOk: true });
+        },
+        create(group) {
+          group.__backendId = Date.now(); // unique ID
+          groups.push(group);
+          if (handlerRef) handlerRef.onDataChanged(groups);
+          console.log("Group created:", group);
+          return Promise.resolve({ isOk: true });
+        },
+        update(updatedGroup) {
+          groups = groups.map((g) =>
+            g.__backendId === updatedGroup.__backendId ? updatedGroup : g
+          );
+          if (handlerRef) handlerRef.onDataChanged(groups);
+          console.log("Group updated:", updatedGroup);
+          return Promise.resolve({ isOk: true });
+        },
+        delete(group) {
+          groups = groups.filter((g) => g.__backendId !== group.__backendId);
+          if (handlerRef) handlerRef.onDataChanged(groups);
+          console.log("Group deleted:", group);
+          return Promise.resolve({ isOk: true });
+        },
+      };
+    })();
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Rajdhani:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     body {
