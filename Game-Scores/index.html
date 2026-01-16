@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Scores</title>
+  <title>Event Result</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     window.elementSdk = {
@@ -23,36 +23,109 @@
   </script>
   <script>
     window.dataSdk = (function () {
+      const STORAGE_KEY = "__data_sdk_groups__";
+
       let groups = [];
       let handlerRef = null;
 
+      function load() {
+        try {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          groups = stored ? JSON.parse(stored) : [];
+        } catch {
+          groups = [];
+        }
+      }
+
+      function save() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(groups));
+      }
+
+      function notify() {
+        if (handlerRef && typeof handlerRef.onDataChanged === "function") {
+          handlerRef.onDataChanged([...groups]);
+        }
+      }
+
+      function generateId() {
+        return crypto.randomUUID
+          ? crypto.randomUUID()
+          : Math.random().toString(36).slice(2);
+      }
+
+      // Keep tabs/windows in sync
+      function onStorage(e) {
+        if (e.key !== STORAGE_KEY) return;
+        load();
+        notify();
+      }
+
+      // Backwards-compat: ensure every record has __backendId
+      function normalizeIds() {
+        let changed = false;
+        groups = groups.map((g) => {
+          if (!g.__backendId) {
+            changed = true;
+            return { ...g, __backendId: generateId() };
+          }
+          return g;
+        });
+        if (changed) save();
+      }
+
       return {
-        init(handler) {
-          console.log("Data SDK initialized");
+        async init(handler) {
+          console.log("Data SDK initialized (persistent)");
           handlerRef = handler;
-          handler.onDataChanged(groups);
-          return Promise.resolve({ isOk: true });
+
+          load();
+          normalizeIds();
+          notify();
+
+          window.removeEventListener("storage", onStorage);
+          window.addEventListener("storage", onStorage);
+
+          return { isOk: true };
         },
-        create(group) {
-          group.__backendId = Date.now(); // unique ID
-          groups.push(group);
-          if (handlerRef) handlerRef.onDataChanged(groups);
-          console.log("Group created:", group);
-          return Promise.resolve({ isOk: true });
+
+        async create(group) {
+          const record = {
+            ...group,
+            __backendId: generateId(),
+          };
+
+          groups.push(record);
+          save();
+          notify();
+
+          console.log("Group created:", record);
+          return { isOk: true, value: record };
         },
-        update(updatedGroup) {
-          groups = groups.map((g) =>
-            g.__backendId === updatedGroup.__backendId ? updatedGroup : g
+
+        async update(updatedGroup) {
+          const index = groups.findIndex(
+            (g) => g.__backendId === updatedGroup.__backendId
           );
-          if (handlerRef) handlerRef.onDataChanged(groups);
+          if (index === -1) return { isOk: false };
+
+          groups[index] = { ...updatedGroup };
+          save();
+          notify();
+
           console.log("Group updated:", updatedGroup);
-          return Promise.resolve({ isOk: true });
+          return { isOk: true };
         },
-        delete(group) {
-          groups = groups.filter((g) => g.__backendId !== group.__backendId);
-          if (handlerRef) handlerRef.onDataChanged(groups);
+
+        async delete(group) {
+          const index = groups.findIndex((g) => g.__backendId === group.__backendId);
+          if (index === -1) return { isOk: false };
+
+          groups.splice(index, 1);
+          save();
+          notify();
+
           console.log("Group deleted:", group);
-          return Promise.resolve({ isOk: true });
+          return { isOk: true };
         },
       };
     })();
@@ -118,21 +191,35 @@
   <style>@view-transition { navigation: auto; }</style>
  </head>
  <body class="min-h-screen">
-  <div id="app" class="min-h-screen w-full overflow-auto" style="background: linear-gradient(to bottom, white 0%, #48fffa 100%); position: relative;"><!-- Olympic Decorative Elements -->
-   <div class="absolute inset-0 overflow-hidden pointer-events-none"><!-- Olympic Rings Pattern - Top corners only -->
+  <div id="app" class="min-h-screen w-full overflow-auto" style="background: linear-gradient(to bottom, rgb(86, 212, 93) 0%, #1BA5F2 100%); position: relative;"><!-- Olympic Decorative Elements -->
+   <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Olympic Rings Pattern - Top corners only -->
     <img src="img/torch.png" class="absolute top-2 -left-5 h-[500px] [rotate:20deg]">
     <img src="img/torch.png" class="absolute top-2 -right-5 h-[500px] [rotate:340deg]">
     <img src="img/ribbon.png" class="absolute top-60 -left-20 h-[1000px]">
     <img src="img/ribbon.png" class="absolute top-60 -right-20 h-[1000px] scale-x-[-1]">
-   </div><!-- Header -->
+    <img src="img/xl-logo.png" class="h-32 w-32 absolute left-0 bottom-0 bg-white p-4">
+   </div>
+   
+   <!-- Header -->
    <header class="text-center py-4 relative z-10">
-    <img src="img/xl-logo.png" class="h-24 mx-auto mt-8 mb-16">
-    <h1 id="main-title" class="text-5xl font-black tracking-wider shimmer-text relative z-10" style="font-family: 'Orbitron', sans-serif; color: #fbbf24;">GAME SCORES</h1>
-    <p id="subtitle" class="text-xl mt-14 tracking-widest relative z-10" style="font-family: 'Rajdhani', sans-serif; color: #78716c;">TEAM STANDINGS</p><!-- Trophy for leader -->
+    <div>
+      <img src="img/olympics-logo.png" class="inline-flex h-32 w-64 mb-6">
+    </div>
+    <div class="flex items-center tracking-widest mb-10 justify-center">
+      <span class="linear-gradient-text from-green-100 to-green-500 text-5xl font-bold">
+        OP
+      </span>
+      <span class="text-yellow-500 text-2xl font-bold">
+        lympics
+      </span>
+    </div>
+    <h1 id="main-title" class="text-5xl font-black tracking-wider shimmer-text relative z-10 score-display" style="font-family: 'Orbitron', sans-serif; color: #fff;">EVENT RESULT</h1>
+    <!-- Trophy for leader -->
     <div id="leader-trophy" class="mt-8 mb-8 trophy-icon hidden">
      <svg class="w-12 h-12 mx-auto" viewbox="0 0 64 64" fill="none"><path d="M32 8L36 20H48L38 28L42 40L32 32L22 40L26 28L16 20H28L32 8Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2" /> <rect x="26" y="40" width="12" height="8" fill="#fbbf24" /> <rect x="22" y="48" width="20" height="4" rx="1" fill="#f59e0b" />
      </svg>
-     <p id="leader-name" class="text-2xl font-bold mt-1" style="font-family: 'Rajdhani', sans-serif; color: #fbbf24;"></p>
+     <p id="leader-name" class="text-2xl font-bold mt-1" style="font-family: 'Rajdhani', sans-serif; color: #fff;"></p>
     </div>
    </header>
    
@@ -360,7 +447,7 @@
         card.innerHTML = `
           <div class="relative w-full flex flex-col items-center justify-end" style="height: 350px;">
             <div class="text-4xl mb-2 rank-badge">${rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : `#${rank}`}</div>
-            <div class="score-display text-3xl font-black score-text mb-2" style="font-family: 'Orbitron', sans-serif; color: ${rank === 1 ? '#fbbf24' : rank === 2 ? '#6b7280' : rank === 3 ? '#d97706' : '#475569'};">
+            <div class="score-display text-3xl font-black score-text mb-2" style="font-family: 'Orbitron', sans-serif; color: #fff;">
               ${group.score || 0}
             </div>
             <div class="score-bar w-full rounded-t-xl transition-all relative overflow-hidden flex items-center justify-center" style="height: ${heightPercentage}%; background: ${barBackground}; box-shadow: 0 -4px 20px rgba(0,0,0,0.3);">
