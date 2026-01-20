@@ -227,20 +227,24 @@
   </style>
  </head>
  <body class="h-full font-body">
-  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background: linear-gradient(to bottom, white 0%, #48fffa 100%);">
-   <div class="w-full min-h-full p-6 md:p-8">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background: linear-gradient(to bottom, #053c5a 0%, #1BA5F2 45%, rgb(86, 212, 93) 100%);">
+   <div class="w-full min-h-full p-2">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <!-- Olympic Rings Pattern - Top corners only -->
     <img src="img/torch.png" class="absolute top-2 -left-5 h-[500px] [rotate:20deg]">
     <img src="img/torch.png" class="absolute top-2 -right-5 h-[500px] [rotate:340deg]">
     <img src="img/ribbon.png" class="absolute top-60 -left-20 h-[1000px]">
     <img src="img/ribbon.png" class="absolute top-60 -right-20 h-[1000px] scale-x-[-1]">
+    <img src="./img/xl-logo.png" alt="" class="h-32 w-32 absolute left-0 bottom-0 bg-white p-4">
    </div>
     
     <!-- Header -->
     <div class="text-center mb-8">
+      <div class="flex flex-col items-center gap-2 mb-6">
+        <img src="img/oplympics-logo.png" class="inline-flex w-64">
+      </div>
      <div class="inline-flex items-center justify-center gap-3 mb-2"><span class="text-4xl">🏅</span>
-      <h1 id="main-title" class="font-display text-5xl md:text-6xl tracking-wider text-[#fbbf24]">TEAM STANDINGS</h1><span class="text-4xl">🏅</span>
+      <h1 id="main-title" class="font-display text-3xl tracking-wider text-white">TEAM STANDINGS</h1><span class="text-4xl">🏅</span>
      </div>
      <div class="h-1 w-32 mx-auto bg-gradient-to-r from-yellow-500 via-gray-300 to-amber-600 rounded-full"></div><!-- View Mode Toggle - Hidden, accessible via Ctrl+Shift+A -->
      <div class="mt-4 flex items-center justify-center gap-3 hidden"><button id="toggle-admin" onclick="toggleViewMode()" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-200 text-sm font-medium border border-white/20"> <span id="mode-icon">👤</span> <span id="mode-text">Switch to User View</span> </button>
@@ -270,19 +274,15 @@
      <div class="backdrop-blur-sm rounded-2xl border-2 border-[#D6E1EA] overflow-hidden" style="background: #F8FAFC;">
       <!-- Table Header -->
       <div class="grid grid-cols-12 items-center gap-2 p-4 bg-[#EEF4F8] border-b border-white/10">
-       <div class="col-span-1 text-[#1F2A44] font-semibold text-center text-sm">
-        #
+       <div class="col-span-1"></div>
+       <div class="col-span-3"></div>
+       <div class="col-span-2 text-center"><span class="text-4xl" title="Gold">🥇</span>
        </div>
-       <div class="col-span-3 text-[#1F2A44] font-semibold text-sm">
-        PARTICIPANT
+       <div class="col-span-2 text-center"><span class="text-4xl" title="Silver">🥈</span>
        </div>
-       <div class="col-span-2 text-center"><span class="text-3xl" title="Gold">🥇</span>
+       <div class="col-span-2 text-center"><span class="text-4xl" title="Bronze">🥉</span>
        </div>
-       <div class="col-span-2 text-center"><span class="text-3xl" title="Silver">🥈</span>
-       </div>
-       <div class="col-span-2 text-center"><span class="text-3xl" title="Bronze">🥉</span>
-       </div>
-       <div class="col-span-2 flex items-center justify-center whitespace-nowrap text-3xl">🥇🥈🥉</div>
+       <div class="col-span-2 flex items-center justify-center whitespace-nowrap text-4xl">🥇🥈🥉</div>
       </div>
       
       <!-- Table Body -->
@@ -302,7 +302,7 @@
     </div>
     
     <!-- Footer -->
-    <div class="text-center mt-8 text-[#1F2A44] text-sm">
+    <div class="text-center mt-8 text-white text-sm">
      <p id="footer-instructions">Click medal counts to edit • Sorted by Gold → Silver → Bronze</p>
     </div>
    </div>
@@ -322,7 +322,7 @@
     let config = { ...defaultConfig };
     let participants = [];
     let isLoading = false;
-    let isAdminMode = true; // Start in admin mode by default
+    let isAdminMode = false; // Start in admin mode by default
 
     // Element SDK initialization
     window.elementSdk.init({
@@ -481,7 +481,7 @@
 
     function createRow(participant, rank) {
       const row = document.createElement('div');
-      row.className = 'grid grid-cols-12 gap-2 p-4 items-center row-hover transition-colors duration-200 animate-fade-in';
+      row.className = 'grid grid-cols-12 gap-2 p-3 items-center row-hover transition-colors duration-200 animate-fade-in';
       row.dataset.id = participant.__backendId;
       updateRowContent(row, participant, rank);
       return row;
@@ -496,49 +496,49 @@
       
       row.innerHTML = `
         <div class="col-span-1 text-center">
-          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${getRankStyle(rank)} font-bold text-sm">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${getRankStyle(rank)} font-bold text-xl p-5">
             ${rank}
           </span>
         </div>
-        <div class="col-span-3 text-[#474340] font-semibold truncate">${escapeHtml(participant.name)}</div>
+        <div class="col-span-3 text-[#474340] text-3xl font-semibold truncate">${escapeHtml(participant.name)}</div>
         <div class="col-span-2 text-center">
           ${canEdit ? `
           <button 
             onclick="editMedal('${participant.__backendId}', 'gold', ${participant.gold})"
-            class="medal-count text-2xl medal-gold hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
+            class="medal-count text-3xl medal-gold hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
           >
             ${participant.gold}
           </button>` : `
-          <span class="text-2xl medal-gold">${participant.gold}</span>
+          <span class="text-3xl medal-gold">${participant.gold}</span>
           `}
         </div>
         <div class="col-span-2 text-center">
           ${canEdit ? `
           <button 
             onclick="editMedal('${participant.__backendId}', 'silver', ${participant.silver})"
-            class="medal-count text-2xl font-bold medal-silver hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
+            class="medal-count text-3xl font-bold medal-silver hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
           >
             ${participant.silver}
           </button>` : `
-          <span class="text-2xl font-bold medal-silver">${participant.silver}</span>
+          <span class="text-3xl font-bold medal-silver">${participant.silver}</span>
           `}
         </div>
         <div class="col-span-2 text-center">
           ${canEdit ? `
           <button 
             onclick="editMedal('${participant.__backendId}', 'bronze', ${participant.bronze})"
-            class="medal-count text-2xl font-bold medal-bronze hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
+            class="medal-count text-3xl font-bold medal-bronze hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
           >
             ${participant.bronze}
           </button>` : `
-          <span class="text-2xl font-bold medal-bronze">${participant.bronze}</span>
+          <span class="text-3xl font-bold medal-bronze">${participant.bronze}</span>
           `}
         </div>
         ${canEdit ? `
         <div class="col-span-2 text-center">
           <button 
             onclick="confirmDelete('${participant.__backendId}')"
-            class="text-red-500 hover:text-red-400 transition-colors p-1"
+            class="text-red-500 text-lg hover:text-red-400 transition-colors p-1"
             title="Remove participant"
           >
             ✕
@@ -546,7 +546,7 @@
         </div>` : `
         <div class="col-span-2 text-center">
           <div 
-            class="text-[#1F2A44] text-2xl hover:text-red-400 transition-colors p-1"
+            class="text-[#1F2A44] text-3xl font-bold hover:text-red-400 transition-colors p-1"
             title="Total"
           >
             ${participant.gold + participant.silver + participant.bronze}
@@ -559,7 +559,7 @@
       if (rank === 1) return 'bg-gradient-to-br from-yellow-400 to-yellow-600 text-black';
       if (rank === 2) return 'bg-gradient-to-br from-gray-300 to-gray-500 text-black';
       if (rank === 3) return 'bg-gradient-to-br from-amber-500 to-amber-700 text-black';
-      return 'bg-white/10 text-white/60';
+      return 'bg-gradient-to-br from-green-400 to-emerald-500 text-black';
     }
 
     function escapeHtml(text) {
