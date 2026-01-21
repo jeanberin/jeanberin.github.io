@@ -175,16 +175,14 @@
       font-family: 'Inter', sans-serif;
     }
     .medal-gold, .medal-silver, .medal-bronze {
-      -webkit-text-fill-color: initial;
-      background: none;
       font-weight: bolder;
       /* dark outline so it stays readable on light backgrounds */
-      /* -webkit-text-stroke: 1px rgba(0,0,0,0.25); */
+      -webkit-text-stroke: 1px rgba(0,0,0,0.25);
       text-shadow:
         0 2px 0 rgba(255,255,255,0.35),
         0 3px 10px rgba(0,0,0,0.25);
     }
-    .medal-gold   { color: gold; }
+    .medal-gold   { color: orange; }
     .medal-silver { color: silver; }
     .medal-bronze { color: #CD7F32; }
     .medal-count { font-size: 2.25rem; line-height: 1; }
@@ -221,6 +219,26 @@
       border-color: rgba(255, 215, 0, 0.5);
       outline: none;
     }
+    @keyframes pulse-glow {
+      0%, 100% { filter: brightness(1) drop-shadow(0 0 10px currentColor); }
+      50% { filter: brightness(1.2) drop-shadow(0 0 25px currentColor); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .score-display {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    .shimmer-text {
+      background: linear-gradient(90deg, currentColor 40%, #fff 50%, currentColor 60%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
   </style>
   <style>
     @view-transition { navigation: auto; }
@@ -231,22 +249,29 @@
    <div class="w-full min-h-full p-2">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <!-- Olympic Rings Pattern - Top corners only -->
-    <img src="img/torch.png" class="absolute top-2 -left-5 h-[500px] [rotate:20deg]">
-    <img src="img/torch.png" class="absolute top-2 -right-5 h-[500px] [rotate:340deg]">
+    <img src="img/moving-confetti.gif" alt="" class="h-full w-[50%]">
+    <img src="img/moving-confetti.gif" alt="" class="absolute top-0 right-0 h-full w-[50%]">
+    <img src="img/crowd.png" class="absolute bottom-0 h-64 w-full opacity-50">
+    <img src="img/moving-torch.gif" class="absolute top-2 -left-5 h-[500px] [rotate:20deg]">
+    <img src="img/moving-torch.gif" class="absolute top-2 -right-5 h-[500px] [rotate:340deg]">
     <img src="img/ribbon.png" class="absolute top-60 -left-20 h-[1000px]">
     <img src="img/ribbon.png" class="absolute top-60 -right-20 h-[1000px] scale-x-[-1]">
-    <img src="./img/xl-logo.png" alt="" class="h-32 w-32 absolute left-0 bottom-0 bg-white p-4">
+    <img src="./img/xl-logo.png" alt="" class="h-52 w-52 absolute left-0 bottom-0 bg-white p-4">
    </div>
     
     <!-- Header -->
     <div class="text-center mb-8">
-      <div class="flex flex-col items-center gap-2 mb-6">
-        <img src="img/oplympics-logo.png" class="inline-flex w-64">
+      <div class="flex flex-col items-center gap-2">
+        <img src="img/oplympics-logo1.png" class="inline-flex w-96 mt-6">
       </div>
-     <div class="inline-flex items-center justify-center gap-3 mb-2"><span class="text-4xl">🏅</span>
-      <h1 id="main-title" class="font-display text-3xl tracking-wider text-white">TEAM STANDINGS</h1><span class="text-4xl">🏅</span>
+     <div class="inline-flex items-center justify-center gap-3 mb-2">
+      <span class="text-6xl">🏅</span>
+        <h1 id="main-title" class="text-5xl font-bold text-[orange] tracking-wider shimmer-text score-display">
+          <span id="main-title-text">EVENT RESULT</span>
+        </h1>
+      </h1><span class="text-6xl">🏅</span>
      </div>
-     <div class="h-1 w-32 mx-auto bg-gradient-to-r from-yellow-500 via-gray-300 to-amber-600 rounded-full"></div><!-- View Mode Toggle - Hidden, accessible via Ctrl+Shift+A -->
+     <div class="h-1 max-w-sm mx-auto bg-gradient-to-r from-yellow-500 via-gray-300 to-amber-600 rounded-full"></div><!-- View Mode Toggle - Hidden, accessible via Ctrl+Shift+A -->
      <div class="mt-4 flex items-center justify-center gap-3 hidden"><button id="toggle-admin" onclick="toggleViewMode()" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-200 text-sm font-medium border border-white/20"> <span id="mode-icon">👤</span> <span id="mode-text">Switch to User View</span> </button>
      </div>
     </div>
@@ -273,16 +298,16 @@
     <div class="max-w-4xl mx-auto">
      <div class="backdrop-blur-sm rounded-2xl border-2 border-[#D6E1EA] overflow-hidden" style="background: #F8FAFC;">
       <!-- Table Header -->
-      <div class="grid grid-cols-12 items-center gap-2 p-4 bg-[#EEF4F8] border-b border-white/10">
+      <div class="grid grid-cols-9 items-center gap-2 py-1 bg-[#EEF4F8] border-b border-white/10">
        <div class="col-span-1"></div>
        <div class="col-span-3"></div>
-       <div class="col-span-2 text-center"><span class="text-4xl" title="Gold">🥇</span>
+       <div class="col-span-1 text-center"><span class="text-5xl" title="Gold">🥇</span>
        </div>
-       <div class="col-span-2 text-center"><span class="text-4xl" title="Silver">🥈</span>
+       <div class="col-span-1 text-center"><span class="text-5xl" title="Silver">🥈</span>
        </div>
-       <div class="col-span-2 text-center"><span class="text-4xl" title="Bronze">🥉</span>
+       <div class="col-span-1 text-center"><span class="text-5xl" title="Bronze">🥉</span>
        </div>
-       <div class="col-span-2 flex items-center justify-center whitespace-nowrap text-4xl">🥇🥈🥉</div>
+       <div class="col-span-2 flex items-center justify-center whitespace-nowrap text-2xl text-[#474340] text-wrap text-center font-semibold">Statistical Points</div>
       </div>
       
       <!-- Table Body -->
@@ -303,13 +328,13 @@
     
     <!-- Footer -->
     <div class="text-center mt-8 text-white text-sm">
-     <p id="footer-instructions">Click medal counts to edit • Sorted by Gold → Silver → Bronze</p>
+     <p id="footer-instructions"></p>
     </div>
    </div>
   </div>
   <script>
     const defaultConfig = {
-      main_title: "TEAM STANDINGS",
+      main_title: "EXCELLENCE METER",
       background_color: "#0f0f1a",
       text_color: "#ffffff",
       accent_color: "#ffd700",
@@ -374,7 +399,7 @@
       const fontFamily = config.font_family || defaultConfig.font_family;
       const fontSize = config.font_size || defaultConfig.font_size;
 
-      document.getElementById('main-title').textContent = title;
+      document.getElementById('main-title-text').textContent = title;
       document.body.style.fontFamily = `${fontFamily}, Inter, sans-serif`;
       document.body.style.fontSize = `${fontSize}px`;
       
@@ -399,7 +424,7 @@
         modeText.textContent = 'Switch to User View';
       } else {
         adminControls.classList.add('hidden');
-        footerInstructions.textContent = 'Sorted by Gold → Silver → Bronze';
+        footerInstructions.textContent = '';
         modeIcon.textContent = '⚙️';
         modeText.textContent = 'Switch to Admin View';
       }
@@ -436,6 +461,38 @@
         if (b.silver !== a.silver) return b.silver - a.silver;
         return b.bronze - a.bronze;
       });
+    }
+
+    function sortParticipants(data) {
+    // Add statistical points to each participant
+    const participants = data.map(p => ({
+      ...p,
+      points: getStatisticalPoint(p.gold, p.silver, p.bronze)
+    }));
+
+    // 1️⃣ Determine 1st place (must have at least 1 gold AND highest points)
+    const goldEligible = participants.filter(p => p.gold > 0);
+
+    // If no gold-eligible players exist, fallback to point-based sorting
+    let firstPlace;
+    if (goldEligible.length > 0) {
+      firstPlace = [...goldEligible].sort((a, b) => b.points - a.points)[0];
+    } else {
+      firstPlace = [...participants].sort((a, b) => b.points - a.points)[0];
+    }
+
+    // 2️⃣ Remove 1st place from list
+    const remaining = participants.filter(p => p.name !== firstPlace.name);
+
+    // 3️⃣ Sort remaining participants by points (for 2nd, 3rd, and others)
+    const sortedRemaining = remaining.sort((a, b) => b.points - a.points);
+
+    // 4️⃣ Build final sorted list (same output format as your old function)
+    return [firstPlace, ...sortedRemaining];
+  }
+
+    function getStatisticalPoint(gold, silver, bronze) {
+      return (gold * 10) + (silver * 3) + (bronze * 1);
     }
 
     function renderStandings() {
@@ -481,7 +538,7 @@
 
     function createRow(participant, rank) {
       const row = document.createElement('div');
-      row.className = 'grid grid-cols-12 gap-2 p-3 items-center row-hover transition-colors duration-200 animate-fade-in';
+      row.className = 'grid grid-cols-9 gap-2 items-center row-hover transition-colors duration-200 animate-fade-in';
       row.dataset.id = participant.__backendId;
       updateRowContent(row, participant, rank);
       return row;
@@ -496,42 +553,42 @@
       
       row.innerHTML = `
         <div class="col-span-1 text-center">
-          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${getRankStyle(rank)} font-bold text-xl p-5">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${getRankStyle(rank)} font-bold text-3xl p-5">
             ${rank}
           </span>
         </div>
-        <div class="col-span-3 text-[#474340] text-3xl font-semibold truncate">${escapeHtml(participant.name)}</div>
-        <div class="col-span-2 text-center">
+        <div class="col-span-3 text-[#474340] text-4xl text-wrap font-semibold truncate">${escapeHtml(participant.name)}</div>
+        <div class="col-span-1 text-center">
           ${canEdit ? `
           <button 
             onclick="editMedal('${participant.__backendId}', 'gold', ${participant.gold})"
-            class="medal-count text-3xl medal-gold hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
+            class="medal-count text-5xl medal-gold hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
           >
             ${participant.gold}
           </button>` : `
-          <span class="text-3xl medal-gold">${participant.gold}</span>
+          <span class="text-5xl medal-gold">${participant.gold}</span>
           `}
         </div>
-        <div class="col-span-2 text-center">
+        <div class="col-span-1 text-center">
           ${canEdit ? `
           <button 
             onclick="editMedal('${participant.__backendId}', 'silver', ${participant.silver})"
-            class="medal-count text-3xl font-bold medal-silver hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
+            class="medal-count text-5xl font-bold medal-silver hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
           >
             ${participant.silver}
           </button>` : `
-          <span class="text-3xl font-bold medal-silver">${participant.silver}</span>
+          <span class="text-5xl font-bold medal-silver">${participant.silver}</span>
           `}
         </div>
-        <div class="col-span-2 text-center">
+        <div class="col-span-1 text-center">
           ${canEdit ? `
           <button 
             onclick="editMedal('${participant.__backendId}', 'bronze', ${participant.bronze})"
-            class="medal-count text-3xl font-bold medal-bronze hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
+            class="medal-count text-5xl font-bold medal-bronze hover:scale-110 transition-transform cursor-pointer bg-transparent border-none"
           >
             ${participant.bronze}
           </button>` : `
-          <span class="text-3xl font-bold medal-bronze">${participant.bronze}</span>
+          <span class="text-5xl font-bold medal-bronze">${participant.bronze}</span>
           `}
         </div>
         ${canEdit ? `
@@ -546,10 +603,10 @@
         </div>` : `
         <div class="col-span-2 text-center">
           <div 
-            class="text-[#1F2A44] text-3xl font-bold hover:text-red-400 transition-colors p-1"
+            class="text-[#1F2A44] text-5xl bg-[gold] font-bold hover:text-red-400 transition-colors p-3"
             title="Total"
           >
-            ${participant.gold + participant.silver + participant.bronze}
+            ${getStatisticalPoint(participant.gold, participant.silver, participant.bronze)}
           </div>
         </div>` }
       `;
