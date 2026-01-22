@@ -403,15 +403,32 @@
       // Sort groups by score descending
       const sortedGroups = [...groups].sort((a, b) => (b.score || 0) - (a.score || 0));
       const maxScore = Math.max(...groups.map(g => g.score || 0), 1);
-      const leader = sortedGroups[0];
+      // Get top score
+      const topScore = sortedGroups[0]?.score || 0;
+
+      // Find all leaders with the same top score
+      const leaders = sortedGroups.filter(g => (g.score || 0) === topScore && topScore > 0);
 
       // Update leader trophy
-      if (leader && leader.score > 0) {
+      if (leaders.length > 0) {
         leaderTrophy.classList.remove('hidden');
-        leaderName.textContent = `🏆 ${leader.group_name} leads with ${leader.score} point${leader.score !== 1 ? 's' : ''}!`;
+
+        const leaderNames = leaders.map(g => g.group_name);
+
+        let namesText = '';
+        if (leaderNames.length === 1) {
+          namesText = leaderNames[0];
+        } else if (leaderNames.length === 2) {
+          namesText = leaderNames.join(' & ');
+        } else {
+          namesText = leaderNames.slice(0, -1).join(', ') + ' & ' + leaderNames.slice(-1);
+        }
+
+        leaderName.textContent = `🏆 ${namesText} lead${leaders.length > 1 ? '' : 's'} with ${topScore} point${topScore !== 1 ? 's' : ''}!`;
       } else {
         leaderTrophy.classList.add('hidden');
       }
+
 
       // Update or create score cards
       const existingCards = new Map();
