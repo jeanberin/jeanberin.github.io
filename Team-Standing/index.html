@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Standings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Element SDK -->
+    <script>
+      (function () {
+        const STORAGE_KEY = "__element_sdk_config__";
+
+        let currentConfig = {};
+        let handlers = { onConfigChange: null };
+
+        function loadConfig(defaultConfig) {
+          try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            return stored
+              ? { ...defaultConfig, ...JSON.parse(stored) }
+              : { ...defaultConfig };
+          } catch {
+            return { ...defaultConfig };
+          }
+        }
+
+        function saveConfig(cfg) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+        }
+
+        window.elementSdk = {
+          init({
+            defaultConfig,
+            onConfigChange,
+            mapToCapabilities,
+            mapToEditPanelValues,
+          }) {
+            handlers.onConfigChange = onConfigChange;
+            currentConfig = loadConfig(defaultConfig);
+
+            if (handlers.onConfigChange) {
+              handlers.onConfigChange(currentConfig);
+            }
+
+            this._capabilities = mapToCapabilities
+              ? mapToCapabilities(currentConfig)
+              : {};
+            this._editPanelValues = mapToEditPanelValues
+              ? mapToEditPanelValues(currentConfig)
+              : new Map();
+          },
+
+          setConfig(partialConfig) {
+            currentConfig = { ...currentConfig, ...partialConfig };
+            saveConfig(currentConfig);
+            if (handlers.onConfigChange) handlers.onConfigChange(currentConfig);
+          },
+
+          getConfig() {
+            return { ...currentConfig };
+          },
+        };
+      })();
+    </script>
+
+    <!-- Data SDK -->
+    <script>
+      (function () {
+        const STORAGE_KEY = "__data_sdk_participants__";
+
+        let data = [];
+        let handler = null;
+
+        function load() {
+          try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            data = stored ? JSON.parse(stored) : [];
+          } catch {
+            data = [];
+          }
+        }
+
+        function save() {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function notify() {
+          if (handler && typeof handler.onDataChanged === "function") {
+            handler.onDataChanged([...data]);
+          }
+        }
+
+        function generateId() {
+          return crypto.randomUUID
+            ? crypto.randomUUID()
+            : Math.random().toString(36).slice(2);
+        }
+
+        function onStorage(e) {
+          if (e.key !== STORAGE_KEY) return;
+          load();
+          notify();
+        }
+
+        window.dataSdk = {
+          async init(dataHandler) {
+            handler = dataHandler;
+            load();
+            notify();
+
+            window.removeEventListener("storage", onStorage);
+            window.addEventListener("storage", onStorage);
+
+            return { isOk: true };
+          },
+
+          async create(item) {
+            const record = { ...item, __backendId: generateId() };
+            data.push(record);
+            save();
+            notify();
+            return { isOk: true, value: record };
+          },
+
+          async update(updatedItem) {
+            const index = data.findIndex(
+              (d) => d.__backendId === updatedItem.__backendId,
+            );
+            if (index === -1) return { isOk: false };
+            data[index] = { ...updatedItem };
+            save();
+            notify();
+            return { isOk: true };
+          },
+
+          async delete(item) {
+            const index = data.findIndex(
+              (d) => d.__backendId === item.__backendId,
+            );
+            if (index === -1) return { isOk: false };
+            data.splice(index, 1);
+            save();
+            notify();
+            return { isOk: true };
+          },
+        };
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      html {
+        font-size: 18px;
+      }
+      body {
+        font-size: 18px;
+        box-sizing: border-box;
+      }
+      .font-display {
+        font-family: "Bebas Neue", sans-serif;
+      }
+      .font-body {
+        font-family: "Inter", sans-serif;
+      }
+
+      .medal-count {
+        font-size: 3.25rem;
+        line-height: 1;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.25s ease-out forwards;
+      }
+
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, 10px);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+      }
+      .toast-animate {
+        animation: toastIn 0.3s ease-out forwards;
+      }
+
+      .input-dark {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .input-dark:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 215, 0, 0.5);
+        outline: none;
+      }
+
+      /* --- Broadcast-like tweaks (no text changes) --- */
+      .board-shell {
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+        background: linear-gradient(
+          180deg,
+          rgba(8, 32, 64, 0.85),
+          rgba(6, 20, 42, 0.9)
+        );
+        backdrop-filter: blur(10px);
+      }
+
+      .board-header-top {
+        background: linear-gradient(
+          90deg,
+          #1b78c7 0%,
+          #0b3d7a 55%,
+          #082b55 100%
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .board-header-sub {
+        background: rgba(255, 255, 255, 0.12);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .row-bg {
+        background: linear-gradient(
+          90deg,
+          rgba(9, 43, 87, 0.85),
+          rgba(6, 25, 55, 0.92)
+        );
+      }
+      .row-bg-alt {
+        background: linear-gradient(
+          90deg,
+          rgba(11, 51, 102, 0.82),
+          rgba(7, 30, 66, 0.92)
+        );
+      }
+      .row-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.13);
+      }
+
+      .rank-plate {
+        width: 56px;
+        height: 44px;
+        background: linear-gradient(180deg, #d11b2c 0%, #9f0f1b 100%);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        transform: skewX(-10deg);
+        border-radius: 6px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+      }
+      .rank-plate > span {
+        transform: skewX(10deg);
+        display: inline-block;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 2rem;
+      }
+
+      .name-broadcast {
+        font-family: "Bebas Neue", sans-serif;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 3.25rem;
+        line-height: 1.05;
+      }
+
+      .num-broadcast {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum" 1;
+      }
+
+      .points-block {
+        font-size: 3rem;
+        line-height: 1;
+      }
+
+      #main-title {
+        font-size: 2.5rem;
+        line-height: 1;
+      }
+
+      /* Keep your shimmer/pulse effects intact */
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          filter: brightness(1) drop-shadow(0 0 10px currentColor);
+        }
+        50% {
+          filter: brightness(1.2) drop-shadow(0 0 25px currentColor);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: -200% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+
+      .score-display {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+      .shimmer-text {
+        background: linear-gradient(
+          90deg,
+          currentColor 40%,
+          #fff 50%,
+          currentColor 60%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 3s linear infinite;
+      }
+    </style>
+
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+
+      @media (max-width: 480px) {
+        html {
+          font-size: 16px;
+        }
+        .name-broadcast {
+          font-size: 2.6rem;
+        }
+        .medal-count {
+          font-size: 2.6rem;
+        }
+        .points-block {
+          font-size: 2.4rem;
+        }
+        #main-title {
+          font-size: 2.1rem;
+        }
+        .rank-plate {
+          width: 50px;
+          height: 40px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="h-full font-body">
+    <div
+      id="app-wrapper"
+      class="w-full h-full overflow-auto"
+      style="
+        background: linear-gradient(
+          to bottom,
+          #50bcf6 0%,
+          white 45%,
+          #56d45d 100%
+        );
+      "
+    >
+      <div
+        class="w-full min-h-full p-2 flex flex-col items-center justify-center"
+      >
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <img src="img/moving-confetti.gif" alt="" class="h-full w-[50%]" />
+          <img
+            src="img/moving-confetti.gif"
+            alt=""
+            class="absolute top-0 right-0 h-full w-[50%]"
+          />
+          <img
+            src="img/crowd.png"
+            class="absolute bottom-0 h-64 w-full opacity-35"
+          />
+          <img
+            src="img/moving-torch.gif"
+            class="absolute top-2 -left-5 h-[500px] [rotate:20deg]"
+          />
+          <img
+            src="img/moving-torch.gif"
+            class="absolute top-2 -right-5 h-[500px] [rotate:340deg]"
+          />
+          <img
+            src="img/ribbon.png"
+            class="absolute top-60 -left-20 h-[1000px]"
+          />
+          <img
+            src="img/ribbon.png"
+            class="absolute top-60 -right-20 h-[1000px] scale-x-[-1]"
+          />
+        </div>
+
+        <!-- Add Participant Form (unchanged text/UI; just styled slightly more broadcast) -->
+        <div id="admin-controls" class="max-w-sm mx-auto mt-6">
+          <div
+            class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D6E1EA]"
+          >
+            <h2 class="text-[#1F2A44] font-semibold mb-4 text-lg">
+              Add New Participant
+            </h2>
+            <form id="add-form" class="flex flex-col sm:flex-row gap-3">
+              <input
+                type="text"
+                id="participant-name"
+                placeholder="Participant / Team Name"
+                class="input-dark flex-1 px-4 py-3 rounded-xl text-[#1F2A44] font-medium border-2 border-[#D6E1EA]"
+                style="background: rgba(217, 119, 6, 0.05)"
+                required
+              />
+              <button
+                type="submit"
+                id="add-btn"
+                class="px-6 py-3 bg-[#F4B000] text-white font-bold rounded-xl hover:bg-[#D99800] transition-all duration-200 shadow-lg hover:shadow-yellow-500/25"
+              >
+                + Add
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Limit Warning -->
+        <div id="limit-warning" class="hidden max-w-4xl mx-auto mb-4">
+          <div
+            class="bg-red-500/20 border border-red-500/50 rounded-xl p-4 text-red-300 text-center"
+          >
+            ⚠️ Maximum limit of 999 participants reached. Please remove some to
+            add more.
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 py-10">
+          <img
+            src="./img/xl-logo.png"
+            alt=""
+            class="inline-flex h-40 w-40 mb-6"
+          />
+          <img src="img/oplympics-logo.png" class="inline-flex w-80" />
+        </div>
+
+        <!-- Standings Table -->
+        <div id="standings-table" class="max-w-4xl w-full mb-48">
+          <div class="rounded-2xl overflow-hidden board-shell">
+            <!-- Broadcast-like header (keeps your title text) -->
+            <div class="board-header-top px-4 py-3">
+              <div class="flex items-center justify-center gap-4">
+                <div class="text-white/90 font-semibold tracking-wide">
+                  <span class="font-display text-6xl leading-none"
+                    >TEAM STANDINGS</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="board-header-sub">
+              <div class="flex items-center justify-center gap-3">
+                <div class="hidden items-center justify-center gap-3">
+                  <button
+                    id="toggle-admin"
+                    onclick="toggleViewMode()"
+                    class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-200 text-sm font-medium border border-white/20"
+                  >
+                    <span id="mode-icon">👤</span>
+                    <span id="mode-text">Switch to User View</span>
+                  </button>
+                </div>
+              </div>
+
+              <div
+                id="table-header"
+                class="grid grid-cols-7 gap-2 items-center px-3 py-3 text-white/85"
+              >
+                <div
+                  class="col-span-1 flex items-center justify-center font-bold uppercase text-xl tracking-widest"
+                >
+                  RANK
+                </div>
+
+                <div
+                  class="col-span-3 font-bold uppercase text-xl tracking-widest"
+                >
+                  CONTINENT
+                </div>
+
+                <span class="col-span-1 text-5xl text-center" title="Gold"
+                  >🥇</span
+                >
+                <span class="col-span-1 text-5xl text-center" title="Silver"
+                  >🥈</span
+                >
+                <span class="col-span-1 text-5xl text-center" title="Bronze"
+                  >🥉</span
+                >
+              </div>
+            </div>
+
+            <!-- Table Body -->
+            <div id="standings-list" class="">
+              <!-- Rows inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="p-12 text-center">
+              <div class="text-6xl mb-4">🏆</div>
+              <p class="text-white text-lg">No participants yet</p>
+              <p class="text-white/80 text-sm mt-2">
+                Add your first participant above to start tracking medals!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-4 text-white text-sm">
+          <p id="footer-instructions"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const defaultConfig = {
+        main_title: "TEAM STANDINGS",
+        background_color: "#0f0f1a",
+        text_color: "#ffffff",
+        accent_color: "#ffd700",
+        surface_color: "#1a1a2e",
+        secondary_color: "#c0c0c0",
+        font_family: "Inter",
+        font_size: 16,
+      };
+
+      let config = { ...defaultConfig };
+      let participants = [];
+      let isLoading = false;
+      let isAdminMode = false; // Start in admin mode by default
+
+      // Element SDK initialization
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (value) => {
+                cfg.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              },
+            },
+            {
+              get: () => cfg.surface_color || defaultConfig.surface_color,
+              set: (value) => {
+                cfg.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              },
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (value) => {
+                cfg.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              },
+            },
+            {
+              get: () => cfg.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                cfg.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              },
+            },
+            {
+              get: () => cfg.secondary_color || defaultConfig.secondary_color,
+              set: (value) => {
+                cfg.secondary_color = value;
+                window.elementSdk.setConfig({ secondary_color: value });
+              },
+            },
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => cfg.font_family || defaultConfig.font_family,
+            set: (value) => {
+              cfg.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            },
+          },
+          fontSizeable: {
+            get: () => cfg.font_size || defaultConfig.font_size,
+            set: (value) => {
+              cfg.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            },
+          },
+        }),
+        mapToEditPanelValues: (cfg) =>
+          new Map([["main_title", cfg.main_title || defaultConfig.main_title]]),
+      });
+
+      function applyConfig() {
+        const title = config.main_title || defaultConfig.main_title;
+        const fontFamily = config.font_family || defaultConfig.font_family;
+        const fontSize = config.font_size || defaultConfig.font_size;
+        const fontStyle = config.font_style || defaultConfig.font_style;
+
+        document.body.style.fontFamily = `${fontFamily}, Inter, sans-serif`;
+        document.body.style.fontSize = `${fontSize}px`;
+
+        updateViewMode();
+      }
+
+      function toggleViewMode() {
+        isAdminMode = !isAdminMode;
+        updateViewMode();
+      }
+
+      function updateViewMode() {
+        const adminControls = document.getElementById("admin-controls");
+        const standingsTable = document.getElementById("standings-table");
+        const tableHeader = document.getElementById("table-header");
+        const footerInstructions = document.getElementById(
+          "footer-instructions",
+        );
+        const modeIcon = document.getElementById("mode-icon");
+        const modeText = document.getElementById("mode-text");
+
+        if (isAdminMode) {
+          adminControls.classList.remove("hidden");
+          standingsTable.classList.add("mt-6");
+          tableHeader.classList.remove("grid-cols-7");
+          tableHeader.classList.add("grid-cols-9");
+          footerInstructions.textContent =
+            "Click medal counts to edit • Sorted by Gold → Silver → Bronze";
+          modeIcon.textContent = "👤";
+          modeText.textContent = "Switch to User View";
+        } else {
+          adminControls.classList.add("hidden");
+          standingsTable.classList.remove("mt-6");
+          tableHeader.classList.remove("grid-cols-9");
+          tableHeader.classList.add("grid-cols-7");
+          footerInstructions.textContent = "";
+          modeIcon.textContent = "⚙️";
+          modeText.textContent = "Switch to Admin View";
+        }
+
+        renderStandings();
+      }
+
+      // Data SDK handler
+      const dataHandler = {
+        onDataChanged(data) {
+          participants = data;
+          renderStandings();
+        },
+      };
+
+      async function initDataSDK() {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error("Failed to initialize Data SDK");
+        }
+      }
+
+      function getTotalPoints(gold, silver, bronze) {
+        return gold + silver + bronze;
+      }
+
+      function sortParticipants(data) {
+        return data.sort((a, b) => {
+          if (b.gold !== a.gold) return b.gold - a.gold;
+          if (b.silver !== a.silver) return b.silver - a.silver;
+          if (b.bronze !== a.bronze) return b.bronze - a.bronze;
+          return a.name.localeCompare(b.name);
+        });
+      }
+
+      function renderStandings() {
+        const container = document.getElementById("standings-list");
+        const emptyState = document.getElementById("empty-state");
+        const sorted = participants.length
+          ? sortParticipants(participants)
+          : [];
+
+        if (sorted.length === 0) {
+          container.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+
+        emptyState.classList.add("hidden");
+
+        const existingRows = new Map(
+          [...container.children].map((el) => [el.dataset.id, el]),
+        );
+
+        sorted.forEach((participant, index) => {
+          const id = participant.__backendId;
+          let row = existingRows.get(id);
+          const isEven = index % 2 === 1;
+
+          if (row) {
+            updateRow(row, participant, index + 1);
+            row.classList.remove("row-bg", "row-bg-alt");
+            row.classList.add(isEven ? "row-bg-alt" : "row-bg");
+            existingRows.delete(id);
+          } else {
+            row = createRow(participant, index + 1);
+            row.classList.add(isEven ? "row-bg-alt" : "row-bg");
+            container.appendChild(row);
+          }
+        });
+
+        existingRows.forEach((el) => el.remove());
+
+        // Reorder rows to match sorted order
+        sorted.forEach((participant, index) => {
+          const row = container.querySelector(
+            `[data-id="${participant.__backendId}"]`,
+          );
+          if (row && row !== container.children[index]) {
+            container.insertBefore(row, container.children[index]);
+          }
+        });
+      }
+
+      function createRow(participant, rank) {
+        const row = document.createElement("div");
+        row.dataset.id = participant.__backendId;
+
+        // Broadcast-ish layout: feels like the image, but keeps YOUR UI content (rank, name, medals, points/delete)
+        row.className =
+          "continent-row grid grid-cols-7 gap-2 items-center px-3 py-3 transition-colors duration-200 animate-fade-in row-divider";
+
+        updateRowContent(row, participant, rank);
+        return row;
+      }
+
+      function updateRow(row, participant, rank) {
+        updateRowContent(row, participant, rank);
+      }
+
+      function updateRowContent(row, participant, rank) {
+        const canEdit = isAdminMode;
+
+        row.classList.remove("grid-cols-7", "grid-cols-9");
+        row.classList.add(canEdit ? "grid-cols-9" : "grid-cols-7");
+
+        row.innerHTML = `
+          <!-- Rank (broadcast plate) -->
+          <div class="col-span-1 flex items-center justify-center">
+            <div class="rank-plate flex items-center justify-center">
+              <span class="text-white text-2xl">${rank}</span>
+            </div>
+          </div>
+
+          <!-- Name (broadcast typography) -->
+          <div class="col-span-3 text-white truncate name-broadcast text-4xl">
+            ${escapeHtml(participant.name)}
+          </div>
+
+          <!-- Gold -->
+          <div class="col-span-1 text-center">
+            ${
+              canEdit
+                ? `
+              <button
+                onclick="editMedal('${participant.__backendId}', 'gold', ${participant.gold})"
+                class="medal-count text-5xl font-bold text-white hover:scale-110 transition-transform cursor-pointer bg-transparent border-none num-broadcast"
+                title="Gold"
+              >${participant.gold}</button>`
+                : `<span class="text-5xl font-bold text-white num-broadcast">${participant.gold}</span>`
+            }
+          </div>
+
+          <!-- Silver -->
+          <div class="col-span-1 text-center">
+            ${
+              canEdit
+                ? `
+              <button
+                onclick="editMedal('${participant.__backendId}', 'silver', ${participant.silver})"
+                class="medal-count text-5xl font-bold text-white hover:scale-110 transition-transform cursor-pointer bg-transparent border-none num-broadcast"
+                title="Silver"
+              >${participant.silver}</button>`
+                : `<span class="text-5xl font-bold text-white num-broadcast">${participant.silver}</span>`
+            }
+          </div>
+
+          <!-- Bronze -->
+          <div class="col-span-1 text-center">
+            ${
+              canEdit
+                ? `
+              <button
+                onclick="editMedal('${participant.__backendId}', 'bronze', ${participant.bronze})"
+                class="medal-count text-5xl font-bold text-white hover:scale-110 transition-transform cursor-pointer bg-transparent border-none num-broadcast"
+                title="Bronze"
+              >${participant.bronze}</button>`
+                : `<span class="text-5xl font-bold text-white num-broadcast">${participant.bronze}</span>`
+            }
+          </div>
+
+          <!-- Right side: delete (admin) OR points (user) -->
+          ${
+            canEdit
+              ? `
+            <div class="col-span-2 text-center">
+              <button
+                onclick="confirmDelete('${participant.__backendId}')"
+                class="text-red-400 hover:text-red-300 text-xl transition-colors p-1"
+                title="Remove participant"
+              >✕</button>
+            </div>
+          `
+              : `
+            <div class="">
+            </div>
+          `
+          }
+        `;
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      let deleteConfirmId = null;
+
+      function confirmDelete(id) {
+        const row = document.querySelector(`[data-id="${id}"]`);
+        const deleteBtn = row.querySelector('button[onclick^="confirmDelete"]');
+
+        if (deleteConfirmId === id) {
+          deleteParticipant(id);
+          deleteConfirmId = null;
+        } else {
+          deleteConfirmId = id;
+          deleteBtn.innerHTML = "✓";
+          deleteBtn.classList.add("text-red-300");
+
+          setTimeout(() => {
+            if (deleteConfirmId === id) {
+              deleteBtn.innerHTML = "✕";
+              deleteBtn.classList.remove("text-red-300");
+              deleteBtn.classList.add("text-red-400");
+              deleteConfirmId = null;
+            }
+          }, 3000);
+        }
+      }
+
+      async function deleteParticipant(id) {
+        if (isLoading) return;
+
+        const participant = participants.find((p) => p.__backendId === id);
+        if (!participant) return;
+
+        isLoading = true;
+        const result = await window.dataSdk.delete(participant);
+        isLoading = false;
+
+        if (!result.isOk) showToast("Failed to remove participant", "error");
+      }
+
+      function editMedal(id, type, currentValue) {
+        const participant = participants.find((p) => p.__backendId === id);
+        if (!participant) return;
+
+        const row = document.querySelector(`[data-id="${id}"]`);
+        const buttons = row.querySelectorAll(".medal-count");
+        const buttonIndex = type === "gold" ? 0 : type === "silver" ? 1 : 2;
+        const button = buttons[buttonIndex];
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.value = currentValue;
+        input.className =
+          "w-20 text-center text-2xl font-bold bg-white/10 border border-white/30 rounded-lg text-white focus:outline-none focus:border-yellow-500 num-broadcast";
+
+        button.replaceWith(input);
+        input.focus();
+        input.select();
+
+        async function saveValue() {
+          const newValue = Math.max(0, parseInt(input.value) || 0);
+          if (newValue !== currentValue) {
+            const updated = { ...participant, [type]: newValue };
+            isLoading = true;
+            const result = await window.dataSdk.update(updated);
+            isLoading = false;
+            if (!result.isOk)
+              showToast("Failed to update medal count", "error");
+          }
+          renderStandings();
+        }
+
+        input.addEventListener("blur", saveValue);
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") input.blur();
+          else if (e.key === "Escape") renderStandings();
+        });
+      }
+
+      function showToast(message, type = "info") {
+        const existing = document.querySelector(".toast-message");
+        if (existing) existing.remove();
+
+        const toast = document.createElement("div");
+        toast.className = `toast-message fixed bottom-4 left-1/2 px-6 py-3 rounded-xl font-medium z-50 toast-animate ${
+          type === "error" ? "bg-red-500 text-white" : "bg-green-500 text-white"
+        }`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.remove(), 3000);
+      }
+
+      // Form submission
+      document
+        .getElementById("add-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (isLoading) return;
+
+          if (participants.length >= 999) {
+            document.getElementById("limit-warning").classList.remove("hidden");
+            return;
+          }
+
+          const nameInput = document.getElementById("participant-name");
+          const name = nameInput.value.trim();
+          if (!name) return;
+
+          const addBtn = document.getElementById("add-btn");
+          addBtn.disabled = true;
+          addBtn.textContent = "Adding...";
+          isLoading = true;
+
+          const result = await window.dataSdk.create({
+            name,
+            gold: 0,
+            silver: 0,
+            bronze: 0,
+            createdAt: new Date().toISOString(),
+          });
+
+          isLoading = false;
+          addBtn.disabled = false;
+          addBtn.textContent = "+ Add";
+
+          if (result.isOk) {
+            nameInput.value = "";
+            document.getElementById("limit-warning").classList.add("hidden");
+          } else {
+            showToast("Failed to add participant", "error");
+          }
+        });
+
+      // Initialize
+      initDataSDK();
+      applyConfig();
+
+      // Keyboard shortcut: Ctrl+Shift+A to toggle view mode
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === "A") {
+          e.preventDefault();
+          toggleViewMode();
+          showToast(
+            isAdminMode ? "Admin View Activated" : "User View Activated",
+            "info",
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
