@@ -191,11 +191,9 @@
   <style>@view-transition { navigation: auto; }</style>
  </head>
  <body class="min-h-screen">
-  <div id="app" class="min-h-screen w-full overflow-auto" style="background: linear-gradient(to bottom, #053c5a 0%, #1BA5F2 45%, rgb(86, 212, 93) 100%); position: relative;"><!-- Olympic Decorative Elements -->
+  <div id="app" class="min-h-screen w-full overflow-auto" style="background: linear-gradient(to bottom,#50bcf6 0%,white 45%,rgb(86, 212, 93) 100%); position: relative;"><!-- Olympic Decorative Elements -->
    <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <!-- Olympic Rings Pattern - Top corners only -->
-    <img src="img/basketball.png" class="absolute h-[500px] opacity-30 mt-60 ml-40">
-    <img src="img/weightlifting.png" class="absolute h-[800px] opacity-30 mt-30 -right-20 mr-0">
     <img src="img/moving-confetti.gif" alt="" class="h-full w-[50%]">
     <img src="img/moving-confetti.gif" alt="" class="absolute top-0 right-0 h-full w-[50%]">
     <img src="img/crowd.png" class="absolute bottom-0 h-64 w-full opacity-50">
@@ -203,21 +201,22 @@
     <img src="img/moving-torch.gif" class="absolute top-2 -right-5 h-[500px] [rotate:340deg]">
     <img src="img/ribbon.png" class="absolute top-60 -left-20 h-[1000px]">
     <img src="img/ribbon.png" class="absolute top-60 -right-20 h-[1000px] scale-x-[-1]">
-    <img src="img/xl-logo.png" class="h-52 w-52 absolute left-0 bottom-0 bg-white p-4">
-    
    </div>
    
    <!-- Header -->
    <header class="text-center py-4 relative z-10">
     <div>
-      <img src="img/oplympics-logo.png" class="inline-flex w-96 mb-6">
+      <img src="img/xl-logo.png" class="inline-flex h-48 w-48 mb-6">
+      <img src="img/oplympics-logo.png" class="inline-flex w-96">
     </div>
-    <h1 id="main-title" class="text-7xl font-black tracking-wider shimmer-text relative z-10" style="font-family: 'Orbitron', sans-serif; color: orange;">EVENT RESULT</h1>
+    <h2 id="sport-name"
+        class="text-6xl font-bold tracking-widest mb-10 relative z-10"
+        style="font-family: 'Orbitron', sans-serif; color: #363333;">
+    </h2>
+    <h1 id="main-title" class="text-5xl font-black tracking-wider shimmer-text relative z-10 mb-10" style="font-family: 'Orbitron', sans-serif; color: orange;">EVENT RESULT</h1>
     <!-- Trophy for leader -->
     <div id="leader-trophy" class="mt-8 mb-8 trophy-icon hidden">
-     <svg class="w-24 h-24 mx-auto" viewbox="0 0 64 64" fill="none"><path d="M32 8L36 20H48L38 28L42 40L32 32L22 40L26 28L16 20H28L32 8Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2" /> <rect x="26" y="40" width="12" height="8" fill="#fbbf24" /> <rect x="22" y="48" width="20" height="4" rx="1" fill="#f59e0b" />
-     </svg>
-     <p id="leader-name" class="text-5xl font-bold mt-1" style="font-family: 'Rajdhani', sans-serif; color: #fff;"></p>
+     <p id="leader-name" class="text-5xl font-bold mt-1" style="font-family: 'Rajdhani', sans-serif; color: #363333;"></p>
     </div>
    </header>
    
@@ -250,6 +249,27 @@
       <h2 class="text-3xl font-bold" style="font-family: 'Orbitron', sans-serif; color: #92400e;">Admin Panel</h2><button onclick="closeAdminPanel()" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-200 transition-colors" style="color: #475569;">×</button>
      </div><!-- Add New Group -->
      <div class="mb-8 p-6 rounded-xl" style="background: rgba(217, 119, 6, 0.08); border: 2px solid rgba(217, 119, 6, 0.3);">
+      <div class="mb-8 p-6 rounded-xl"
+     style="background: rgba(59, 130, 246, 0.08); border: 2px solid rgba(59, 130, 246, 0.3);">
+        <h3 class="text-xl font-semibold mb-4"
+            style="font-family: 'Rajdhani', sans-serif; color: #1d4ed8;">
+          Sport Settings
+        </h3>
+        <div class="flex gap-4 items-end">
+          <div class="flex-1">
+            <label class="block text-sm mb-2" style="color: #475569;">Sport Name</label>
+            <input type="text" id="sport-name-input"
+                  placeholder="Enter sport name (e.g. Basketball)"
+                  class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none"
+                  style="background: #ffffff; border-color: #3b82f6; color: #1e293b; font-family: 'Rajdhani', sans-serif;">
+          </div>
+          <button id="save-sport-btn"
+                  class="px-6 py-3 rounded-lg font-bold transition-all hover:scale-105"
+                  style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; font-family: 'Rajdhani', sans-serif;">
+            Save
+          </button>
+        </div>
+      </div>
       <h3 class="text-xl font-semibold mb-4" style="font-family: 'Rajdhani', sans-serif; color: #92400e;">Add New Group</h3>
       <div class="flex gap-4 flex-wrap">
        <div class="flex-1 min-w-[200px]"><label for="group-name-input" class="block text-sm mb-2" style="color: #475569;">Group Name</label> <input type="text" id="group-name-input" placeholder="Enter group name" class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none transition-colors" style="background: #ffffff; border-color: #d97706; color: #1e293b; font-family: 'Rajdhani', sans-serif;">
@@ -287,6 +307,7 @@
     let config = { ...defaultConfig };
     let groups = [];
     let isLoading = false;
+    let sportName = localStorage.getItem('sport_name') || 'BASKETBALL';
 
     // Data Handler for Data SDK
     const dataHandler = {
@@ -349,6 +370,14 @@
       const result = await window.dataSdk.init(dataHandler);
       if (!result.isOk) {
         console.error('Failed to initialize Data SDK');
+      }
+      renderSportName();
+    }
+
+    function renderSportName() {
+      const sportEl = document.getElementById('sport-name');
+      if (sportEl) {
+        sportEl.textContent = sportName.toUpperCase();
       }
     }
 
@@ -461,8 +490,8 @@
         
         card.innerHTML = `
           <div class="relative w-full flex flex-col items-center justify-end" style="height: 400px;">
-            <div class="text-7xl mb-2 rank-badge">${rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : `#${rank}`}</div>
-            <div class="score-display text-5xl font-black score-text mb-2" style="font-family: 'Orbitron', sans-serif; color: #fff;">
+            <div class="text-7xl mb-2 rank-badge">${rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : ''}</div>
+            <div class="text-5xl font-black score-text mb-2" style="font-family: 'Orbitron', sans-serif; color: #363333;">
               ${group.score || 0}
             </div>
             <div class="score-bar w-full rounded-t-xl transition-all relative overflow-hidden flex items-center justify-center" style="height: ${heightPercentage}%; background: ${barBackground}; box-shadow: 0 -4px 20px rgba(0,0,0,0.3);">
@@ -640,6 +669,8 @@
 
     function openAdminPanel() {
       document.getElementById('admin-panel').classList.remove('hidden');
+      const input = document.getElementById('sport-name-input');
+      if (input) input.value = sportName;
     }
 
     function closeAdminPanel() {
@@ -651,6 +682,17 @@
     document.getElementById('add-group-btn').addEventListener('click', addGroup);
     document.getElementById('group-name-input').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') addGroup();
+    });
+
+    document.getElementById('save-sport-btn').addEventListener('click', () => {
+      const input = document.getElementById('sport-name-input');
+      const value = input.value.trim();
+
+      if (!value) return;
+
+      sportName = value;
+      localStorage.setItem('sport_name', sportName);
+      renderSportName();
     });
 
     // Secret keyboard shortcut: Press Ctrl+Shift+A to toggle admin access
