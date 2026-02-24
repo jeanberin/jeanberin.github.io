@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jean Berin</title>
+    <meta name="description"
+        content="Professional Software Developer Portfolio. Explore my skills, experience, projects, and contact info.">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    </script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+    <div class="bg-noise"></div>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">JB.</a>
+            <ul class="nav-links">
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact" class="nav-btn">Let's Talk</a></li>
+                <li>
+                    <button class="theme-toggle" aria-label="Toggle Theme">
+                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="width: 20px; height: 20px;">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="width: 20px; height: 20px; display: none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="full-height">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <p class="subtitle animate-fade-up" style="--delay: 0.1s">Hello, I'm Jean</p>
+                    <h1 class="main-title animate-fade-up" style="--delay: 0.2s">
+                        Crafting <span class="text-gradient">digital</span> <br> experiences
+                    </h1>
+                    <p class="hero-desc animate-fade-up" style="--delay: 0.3s">
+                        I am a software developer passionate about building scalable, elegant, and user-centric
+                        applications. Let's turn ideas into reality.
+                    </p>
+                    <div class="hero-btns animate-fade-up" style="--delay: 0.4s">
+                        <a target="_blank"
+                            href="https://drive.google.com/file/d/1ALt1y93Ti2JRJkzNFVeo_zSJZgFF8gMc/view?usp=sharing"
+                            class="btn btn-outline" download>View Resume</a>
+                        <a href="#contact" class="btn btn-primary">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+            </div>
+        </section>
+
+
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">My Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category reveal">
+                        <h3>Frontend</h3>
+                        <div class="skill-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Bootstrap</span>
+                            <span class="tag">Tailwind CSS</span>
+                        </div>
+                    </div>
+                    <div class="skill-category reveal">
+                        <h3>Backend</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Laravel</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">MS SQL Server</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">API Integration</span>
+                            <span class="tag">REST APIs</span>
+                        </div>
+                    </div>
+                    <div class="skill-category reveal">
+                        <h3>Tools & Others</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Git</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">UI/UX Design</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="experience" class="section bg-light-panel">
+            <div class="container">
+                <h2 class="section-title reveal">Work Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content card">
+                            <span class="date">Oct 2024 - Present</span>
+                            <h3>Junior Developer</h3>
+                            <h4>Megaworld Corporation</h4>
+                            <ul>
+                                <li style="margin-bottom: 1rem;">Developed data-driven dashboards with Google Charts and
+                                    backend integration via
+                                    <strong>Laravel</strong>, streamlining HR analytics for <strong>20,000+</strong>
+                                    employees.
+                                </li>
+                                <li style="margin-bottom: 1rem;">Built an automated travel authorization system with
+                                    <strong>Laravel</strong>,
+                                    <strong>JavaScript</strong>, and <strong>Docker</strong>, streamlining requests,
+                                    approvals, booking confirmations, and notifications.
+                                </li>
+                                <li style="margin-bottom: 1rem;">Engineered a real-time biometric system dashboard with
+                                    <strong>Laravel</strong> and
+                                    <strong>JavaScript</strong> to monitor uptime/downtime across <strong>140+</strong>
+                                    site
+                                    offices.
+                                </li>
+                                <li style="margin-bottom: 1rem;">Optimized biometric log uploads from
+                                    <strong>140+</strong> offices using batching
+                                    and
+                                    <strong>Redis caching</strong>, cutting storage and boosting upload speed.
+                                </li>
+                                <li>Executed database migrations across projects to ensure data integrity and reliable
+                                    system
+                                    performance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="education" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content card">
+                            <span class="date">2019 - 2023</span>
+                            <h3>Bachelor of Science in Electronics Engineering</h3>
+                            <h4>University of the Philippines Diliman</h4>
+                            <p>Graduated as cum laude</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section bg-light-panel">
+            <div class="container">
+                <h2 class="section-title reveal">Selected Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card reveal">
+                        <div class="project-img-wrapper">
+                            <div class="img-placeholder">Project Image</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Coffee Shop Website</h3>
+                            <p>A modern and inviting website for a local coffee shop, featuring menu display, online
+                                ordering, and location information.</p>
+                            <div class="tech-stack">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="project-links">
+                                <a target="_blank" href="https://jeanberin.github.io/Coffee-Shop/" class="link-btn">Live
+                                    Demo</a>
+                                <a target="_blank" href="https://github.com/jeanberin/Coffee-Shop-Website"
+                                    class="link-btn outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card reveal">
+                        <div class="project-img-wrapper">
+                            <div class="img-placeholder">Project Image</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Dental Clinic Website</h3>
+                            <p>A professional website for a dental clinic, providing information on services,
+                                appointment booking, and patient testimonials.</p>
+                            <div class="tech-stack">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="project-links">
+                                <a target="_blank" href="https://mberin.github.io/" class="link-btn">Live Demo</a>
+                                <a target="_blank" href="https://github.com/mberin/mberin.github.io"
+                                    class="link-btn outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card reveal">
+                        <div class="project-img-wrapper">
+                            <div class="img-placeholder">Project Image</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Word Search Puzzle Solver</h3>
+                            <p>An efficient algorithm and user interface for solving word search puzzles.</p>
+                            <div class="tech-stack">
+                                <span>Python</span>
+                            </div>
+                            <div class="project-links">
+                                <a target="_blank" href="https://www.youtube.com/watch?v=-rlgEueerH8"
+                                    class="link-btn">Live Demo</a>
+                                <a target="_blank" href="https://github.com/jeanberin/Word-Search-Puzzle-Solver"
+                                    class="link-btn outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-wrapper reveal">
+                    <div class="contact-text">
+                        <h2 class="section-title">Let's build something <br> amazing together.</h2>
+                        <p>I'm currently looking for new opportunities. Whether you have a question or just want to say
+                            hi, I'll try my best to get back to you!</p>
+
+                        <div class="contact-info-list">
+                            <div class="info-item">
+                                <span class="label">Email:</span>
+                                <a href="mailto:berinjeanfrancoisthomas@gmail.com">berinjeanfrancoisthomas@gmail.com</a>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Social:</span>
+                                <div class="social-links">
+                                    <a target="_blank"
+                                        href="https://www.linkedin.com/in/jean-francois-thomas-berin/">LinkedIn</a>
+                                    <a target="_blank" href="https://github.com/jeanberin">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; <span id="current-year"></span> Jean Berin.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
